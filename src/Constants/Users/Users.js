@@ -1,0 +1,2 @@
+export const GET_SCORE_USERS = "GET_SCORE_USERS"
+export const GET_DATA_USERS = "GET_DATA_USERS"

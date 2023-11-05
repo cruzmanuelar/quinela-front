@@ -1,0 +1,84 @@
+.Container-Match div{
+    display: flex;
+    justify-content: center !important;
+}
+
+.Image-Country{
+    width: 35px;
+    height: 35px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+.Container-Country-Shield{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #26282c;
+}
+
+.Container-Country-Shield.Left{
+    display: flex;
+    justify-content: end !important;
+}
+
+.Container-Country-Shield.Right{
+    display: flex;
+    justify-content: initial !important;
+}
+
+.Container-Score{
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    font-weight: 600;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #515865;
+    color: #FFFFFF;
+}
+.Container-Score.Info-Matches{
+    margin-top: 0px;
+    margin-bottom: 4px;
+}
+.Container-Button-Add {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.Button-Add-Quinela{
+    text-decoration: none !important;
+    background-color: #5e2129;
+    color: #FFFFFF;
+}
+
+.Button-Add-Quinela:hover{
+    color: #FFFFFF !important;
+}
+
+.Container-Prediction-Score{
+    display: flex;
+    justify-content: center;
+    background-color: #5e2129;
+    color: #FFFFFF;
+    width: 70%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.Container-Prediction.Show{
+    display: flex;
+    justify-content: center;
+    transition: display 2s;
+}
+.Collapse-Journey-Matches .ant-collapse-header-text{
+    font-weight: 600 !important;
+    color: #5e2129;
+}
+
+.Container-Prediction.Hidden{
+    display: none;
+    transition: display 2s;
+}

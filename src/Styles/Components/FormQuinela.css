@@ -1,0 +1,25 @@
+.Modal-Form-Quinela input{
+    text-align: center !important;
+}
+
+.Modal-Form-Quinela .ant-input-number{
+    border: 1.5px solid #5e2129;
+}
+
+.Modal-Form-Quinela .ant-modal-title{
+    text-align: center;
+    color: #5e2129;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.Modal-Form-Quinela .ant-modal-footer .ant-btn-primary,
+.Modal-Form-Quinela:hover .ant-modal-footer .ant-btn-primary{
+    background-color: #003eb3;
+}
+
+.Modal-Form-Quinela .ant-modal-footer .ant-btn-default,
+.Modal-Form-Quinela:hover .ant-modal-footer .ant-btn-default{
+    background-color: #f5222d;
+    color: #FFFFFF;
+}

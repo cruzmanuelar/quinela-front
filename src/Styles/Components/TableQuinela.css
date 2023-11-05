@@ -1,0 +1,22 @@
+.Container-Table-Quinela .ant-table-cell{
+    padding: 8px 8px !important;
+    font-size: 11px !important;
+}
+.Title-Table-Quinela{
+    display: flex;
+    justify-content: center;
+    margin-top: 7px !important;
+    color: #5e2129 !important;
+    font-weight: 600 !important;
+}
+
+.Container-Table-Quinela .ant-table-row .ant-table-cell{
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+
+
+.Table-Quinela .ant-table-thead .ant-table-cell{
+    background-color: #5e2129 !important;
+    color: #FFFFFF;
+}

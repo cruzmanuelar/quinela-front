@@ -1,0 +1,57 @@
+.Image-Login{
+    width: 20vw;
+    height: auto;
+    border-radius: 100%;
+}
+
+.Button-Login{
+    margin: 5px 0;
+    background-color: #08979c;
+    border: none !important;
+    color: #FFFFFF;
+}
+
+
+.Button-Login:hover{
+    color: #FFFFFF !important;
+}
+
+.Modal-Confirm-Login .ant-modal-footer .ant-btn-primary,
+.Modal-Confirm-Login:hover .ant-modal-footer .ant-btn-primary{
+    background-color: #003eb3;
+}
+
+.Modal-Confirm-Login .ant-modal-footer .ant-btn-default,
+.Modal-Confirm-Login:hover .ant-modal-footer .ant-btn-default{
+    background-color: #f5222d;
+    color: #FFFFFF;
+}
+
+.Modal-Confirm-Login .ant-modal-title{
+    text-align: center;
+    color: #5e2129;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.Modal-Confirm-Login .ant-modal-body{
+    text-align: center;
+    color: #5e2129;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.Modal-Confirm-Login .ant-modal-footer{
+    display: flex;
+    justify-content: center;
+}
+
+.Modal-Confirm-Login .ant-modal-close{
+    background-color: #5e2129;
+    border-radius: 100%;
+}
+
+.Modal-Confirm-Login .ant-modal-close:hover{
+    background-color: #5e2129;
+    border-radius: 100%;
+}

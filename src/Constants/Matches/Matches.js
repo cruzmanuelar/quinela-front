@@ -1,0 +1,2 @@
+export const GET_PREV_MATCHES = "GET_PREV_MATCHES"
+export const GET_NEXT_MATCHES = "GET_NEXT_MATCHES"

@@ -1,0 +1,9 @@
+.Container-Header{
+    padding: 10px;
+    color: #FFFFFF;
+    font-weight: 600;
+    background-color: #5e2129;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

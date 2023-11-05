@@ -1,0 +1,99 @@
+
+import { 
+    GET_SCORE_USERS,
+    GET_DATA_USERS
+} from "../../../Constants/Users/Users"
+import config from "./../../../config"
+
+export const GetUsersReducers = () => async (dispatch, getState) =>{
+    await fetch(config.apiUrl + "users/all",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            console.log(data)
+            dispatch({
+                type: GET_DATA_USERS,
+                payload : data.data
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+export const LoginUserReducers = (correo) => async (dispatch, getState) =>{
+
+    let response = false
+
+    await fetch(config.apiUrl + "users/login",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+                req_usucorreo: correo
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            response = true
+            localStorage.setItem('usutoken', JSON.stringify(data.token));
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return response
+}
+
+export const GetScoreUsersReducers = () => async (dispatch, getState) =>{
+    await fetch(config.apiUrl + "users/scores",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            console.log(data)
+
+            const dataUsers = data.data.sort(function (a, b) {
+                return b.ptosTotal - a.ptosTotal;
+            });
+
+            console.log(dataUsers)
+            dispatch({
+                type : GET_SCORE_USERS,
+                payload : dataUsers
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
