@@ -1,3 +1,5 @@
 export default {
-    apiUrl : "http://localhost:3000/api/"
+    apiUrl : "https://quinela-bondad.onrender.com/api/"
+    //apiUrl : "http://localhost:8001/api/"
+
 }
