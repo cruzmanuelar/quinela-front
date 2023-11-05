@@ -28,7 +28,9 @@ const Login = () => {
     }
 
     const loginUser = async () => {
+        setConfirmLoading(true)
         const response = await dispatch(LoginUserReducers(usuLogin))
+        setConfirmLoading(false)
         if(response){
             navigate('/home')
         }
@@ -37,9 +39,6 @@ const Login = () => {
     useEffect(()=> {
         getDataUsers()
     }, [])
-
-    const confirmLogin = async () => {
-    }
 
     return (
         <div style={{display:'flex', height:'100vh', alignItems:'center', justifyContent:'center', flexDirection:'column', backgroundColor:'#5e2129'}}>

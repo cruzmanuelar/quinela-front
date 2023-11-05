@@ -8,7 +8,7 @@ import {
     FireOutlined
 } from "@ant-design/icons"
 
-const TableQuinela = () => {
+const TableQuinela = ({loadingData}) => {
 
     const dispatch = useDispatch()
     const { Title } = Typography
@@ -69,6 +69,7 @@ const TableQuinela = () => {
         <div className='Container-Table-Quinela'>
             <Title className='Title-Table-Quinela' level={4}>Tabla de posiciones</Title>
             <Table
+                loading={loadingData}
                 columns={columns}
                 pagination={{
                     position: ['topCenter'],

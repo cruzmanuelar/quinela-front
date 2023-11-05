@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import JourneyMatches from './JourneyMatches'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetNextPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
@@ -8,6 +8,7 @@ import TableQuinela from './TableQuinela'
 const Home = () => {
     
     const dispatch = useDispatch()
+    const [loadingData, setLoadingData ] = useState(false)
 
     const {
         rex_next_matches,
@@ -15,7 +16,9 @@ const Home = () => {
     } = useSelector(({matches}) => matches)
 
     const getData = async () => {
+        setLoadingData(true)
         await dispatch(GetNextPrevMatchesReducers())
+        setLoadingData(false)
     }
 
     useEffect(()=>{
@@ -29,7 +32,9 @@ const Home = () => {
             data={rex_prev_matches}
             nextMatches={false}
         />
-        <TableQuinela/>
+        <TableQuinela
+            loadingData={loadingData}
+        />
         <JourneyMatches
             title={"Jornada siguiente"}
             data={rex_next_matches}
