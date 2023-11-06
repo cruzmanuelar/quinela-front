@@ -20,3 +20,11 @@
     background-color: #5e2129 !important;
     color: #FFFFFF;
 }
+
+.Table-Quinela .Color-Succes{
+    background-color:#baffc9;
+}
+
+.Table-Quinela .Color-Wrong{
+    background-color:#ffb3ba;
+}

@@ -1,4 +1,4 @@
-import { GET_NEXT_MATCHES, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
+import { GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
 import config from "./../../../config"
 
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
@@ -74,7 +74,72 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
     return response
 }
 
+export const GetAllMatchesReducers = () => async (dispatch, getState) =>{
 
+    let response = false
+
+    await fetch(config.apiUrl + "matches/get-all",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            response = true
+            dispatch({
+                type : GET_ALL_MATCHES,
+                payload : data.data
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return response
+}
+
+export const GetPredictionsJourneyReducers = (match) => async (dispatch, getState) =>{
+
+    let response = false
+
+    await fetch(config.apiUrl + "matches/predictions-journey",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+                req_id : match.partid
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        console.log(data)
+        if(data.response){
+            response = true
+            console.log(data.data)
+            dispatch({
+                type : GET_PREDICTIONS_JOURNEY,
+                payload : data.data
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return response
+}
 
 export const EditFormQuinelaReducers = (index, team, value) => async (dispatch, getState) =>{
     const dataNextMatches = getState().matches.rex_next_matches

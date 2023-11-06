@@ -1,0 +1,11 @@
+.Image-Country-Prediction{
+    width: 25px;
+    height: 25px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+.Container-Header-Prediction{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
