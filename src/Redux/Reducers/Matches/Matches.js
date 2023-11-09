@@ -2,14 +2,17 @@ import {
     GET_NEXT_MATCHES,
     GET_PREV_MATCHES,
     GET_ALL_MATCHES,
-    GET_PREDICTIONS_JOURNEY
+    GET_PREDICTIONS_JOURNEY,
+    FORM_PREDICTION_NEXT_MATCHES,
 } from "../../../Constants/Matches/Matches"
 
 const INIT_STATE = {
     rex_next_matches    : [],
     rex_prev_matches    : [],
     rex_all_matches     : [],
-    rex_predictions_journey : []
+    rex_predictions_journey : [],
+    rex_data_next_matches   : [],
+    rex_form_prediction_next_matches : []
 }
 
 export default (state = INIT_STATE, action) => {
@@ -33,6 +36,11 @@ export default (state = INIT_STATE, action) => {
             return {
                 ...state,
                 rex_prev_matches: action.payload
+        }
+        case FORM_PREDICTION_NEXT_MATCHES:
+            return {
+                ...state,
+                rex_form_prediction_next_matches: action.payload
         }
         default:
             return state

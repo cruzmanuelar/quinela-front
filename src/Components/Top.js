@@ -48,6 +48,17 @@ const Top = () => {
 		  key: '2',
 		},
 		{
+			label: <div
+			  onClick={()=> {
+				  navigate('/admin')
+			  }}
+			  style={{display:"flex", columnGap:"10px"}}
+			>
+			  <UserOutlined /> Administrador
+			</div>,
+			key: '3',
+		},
+		{
 		  type: 'divider',
 		},
 		{
@@ -58,7 +69,7 @@ const Top = () => {
 			}}
 			style={{display:"flex", columnGap:"10px"}}
 		  ><LogoutOutlined /> Salir</div>,
-		  key: '3',
+		  key: '4',
 		},
 	];
 

@@ -1,0 +1,19 @@
+.Container-Close-Matches{
+    display: flex;
+    justify-content: center;
+}
+
+.Container-Close-Matches .Col-Container-Score{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+}
+.Container-Close-Matches .Container-Score{
+    color: #FFFFFF;
+    background-color: #5e2129;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

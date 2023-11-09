@@ -1,4 +1,4 @@
-import { GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
+import { FORM_PREDICTION_NEXT_MATCHES, GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
 import config from "./../../../config"
 
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
@@ -27,6 +27,10 @@ export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
                 payload : data.data.nextMatches
             })
             dispatch({
+                type : FORM_PREDICTION_NEXT_MATCHES,
+                payload : [...data.dataUser.nextMatches]
+            })
+            dispatch({
                 type : GET_PREV_MATCHES,
                 payload : data.data.prevMatches
             })
@@ -44,7 +48,7 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
     const usutoken = localStorage.getItem('usutoken')
 
     let response = false
-    const dataQuinela = getState().matches.rex_next_matches
+    const dataQuinela = getState().matches.rex_form_prediction_next_matches
 
     await fetch(config.apiUrl + "matches/create-quinela",
         {
@@ -142,14 +146,13 @@ export const GetPredictionsJourneyReducers = (match) => async (dispatch, getStat
 }
 
 export const EditFormQuinelaReducers = (index, team, value) => async (dispatch, getState) =>{
-    const dataNextMatches = getState().matches.rex_next_matches
-
-    console.log(dataNextMatches[index][team])
-
+    const dataNextMatches = [...getState().matches.rex_form_prediction_next_matches]
     dataNextMatches[index][team] = value
 
+    console.log("edit")
+
     dispatch({
-        type : GET_NEXT_MATCHES,
+        type : FORM_PREDICTION_NEXT_MATCHES,
         payload : dataNextMatches
     })
 }

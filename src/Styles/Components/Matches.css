@@ -9,3 +9,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.Modal-Form-Quinela .Box-Prediction-Ok{
+    width: 10px;
+    height: 10px;
+    background-color: #baffc9;
+}
+
+.Modal-Form-Quinela .Box-Prediction-Failed{
+    width: 10px;
+    height: 10px;
+    background-color: #ffb3ba;
+}

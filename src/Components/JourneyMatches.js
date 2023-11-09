@@ -42,7 +42,9 @@ const JourneyMatches = ({title, data, nextMatches}) => {
                                         {
                                             nextMatches
                                             ?  <div style={{display:"flex", flexDirection:"column"}}>
-                                                <div><AlertOutlined style={{cursor:"pointer"}}/></div>
+                                                <div><AlertOutlined style={{cursor:"pointer",
+                                                    color : `${dat.done ? "black":"red"}`
+                                                }}/></div>
                                                 <div style={{width:'100%'}}>
                                                     <div className='Container-Score Info-Matches'>
                                                     {dat.predictionLocal} - {dat.predictionVisitante}</div>

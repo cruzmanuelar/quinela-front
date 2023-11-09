@@ -6,7 +6,7 @@ import { GetAllMatchesReducers, GetPredictionsJourneyReducers } from '../../Redu
 import '../../Styles/Components/Matches.css'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
-export const Matches = () => {
+const Matches = () => {
 
 
     const { Panel } = Collapse
@@ -133,20 +133,29 @@ export const Matches = () => {
             >
                 {
                     rex_predictions_journey.length > 0
-                    ? <Table
-                    size='small'
-                    columns={columns}
-                    dataSource={rex_predictions_journey}
-                    className='Table-Quinela'
-                    rowClassName={(record)=> {
-                        let resultOk = record.pruresultado == record.parpartidos.parresultado
+                    ?   <>
+                        <Table
+                            size='small'
+                            columns={columns}
+                            dataSource={rex_predictions_journey}
+                            className='Table-Quinela'
+                            rowClassName={(record)=> {
+                                let resultOk = record.pruresultado == record.parpartidos.parresultado
 
-                        return resultOk ? "Color-Succes" : "Color-Wrong"
-                    }}
-                />
+                                return resultOk ? "Color-Succes" : "Color-Wrong"
+                            }}
+                        />
+                        <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>
+                            <div>Resultado:</div>
+                            <div className='Box-Prediction-Ok'></div><span>Acertó</span>
+                            <div className='Box-Prediction-Failed'></div><span>Falló</span>
+                        </div>
+                        </>
                 : null
                 }
             </Modal>
         </>
     )
 }
+
+export default Matches
