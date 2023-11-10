@@ -6,6 +6,7 @@ import {
 import config from "./../../../config"
 
 export const GetUsersReducers = () => async (dispatch, getState) =>{
+
     await fetch(config.apiUrl + "users/all",
         {
             mode: "cors",
@@ -33,9 +34,10 @@ export const GetUsersReducers = () => async (dispatch, getState) =>{
     })
 }
 
-export const LoginUserReducers = (correo) => async (dispatch, getState) =>{
+export const LoginUserReducers = (user) => async (dispatch, getState) =>{
 
-    let response = false
+    let response    = false
+    let message     = ""
 
     await fetch(config.apiUrl + "users/login",
         {
@@ -46,7 +48,8 @@ export const LoginUserReducers = (correo) => async (dispatch, getState) =>{
                 "Content-type":"application/json",
             },
             body : JSON.stringify({
-                req_usucorreo: correo
+                req_usucorreo: user.usuemail,
+                req_usupassword : user.usupassword
             })
         },
     )
@@ -55,13 +58,15 @@ export const LoginUserReducers = (correo) => async (dispatch, getState) =>{
         if(data.response){
             response = true
             localStorage.setItem('usutoken', JSON.stringify(data.token));
+        }else{
+            message = data.message
         }
     })
     .catch((error) => {
         console.log(error)
     })
 
-    return response
+    return {response, message}
 }
 
 export const GetScoreUsersReducers = () => async (dispatch, getState) =>{

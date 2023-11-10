@@ -17,3 +17,12 @@
     align-items: center;
     cursor: pointer;
 }
+
+.Modal-Close-Match .ant-modal-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #5e2129;
+    text-decoration: underline;
+}

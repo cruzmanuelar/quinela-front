@@ -1,4 +1,4 @@
-import { Select, Typography, Button, Modal } from 'antd'
+import { Select, Typography, Button, Modal, Input, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetUsersReducers, LoginUserReducers } from '../Redux/Actions/Users/Users'
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import {
     CloseOutlined
 } from "@ant-design/icons"
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
 
@@ -17,23 +19,39 @@ const Login = () => {
 
     const [ showModalConfirm, setShowModalConfirm ] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
-    const [ usuLogin, setUsuLogin ] = useState('')
+    const [ usuLogin, setUsuLogin ] = useState(
+        {
+            usuemail: "",
+            usupassword : ""
+        }
+    )
+    const [ loadingUsers, setLoadingUsers ] = useState(false)
 
     const {
         rex_data_users
     } = useSelector(({users}) => users)
 
+    const notify = (message) => toast.warn(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
+
     const getDataUsers = async () => {
+        setLoadingUsers(true)
         await dispatch(GetUsersReducers())
+        setLoadingUsers(false)
     }
 
     const loginUser = async () => {
         setConfirmLoading(true)
-        const response = await dispatch(LoginUserReducers(usuLogin))
+        const { response, message } = await dispatch(LoginUserReducers(usuLogin))
         setConfirmLoading(false)
         if(response){
             navigate('/home')
+        }else{
+            setShowModalConfirm(false)
+            notify(message)
         }
+        console.log(usuLogin)
     }
 
     useEffect(()=> {
@@ -49,24 +67,45 @@ const Login = () => {
             <Title style={{color:'#FFFFFF'}} level={2}>
                 La polla de la bondad
             </Title>
-            <Select
-                placeholder='Seleccione su usuario'
-                style={{ width:'200px'}}
-                onChange={(value)=> setUsuLogin(value)}
-            >
+            <div style={{display:"flex", rowGap:"10px", flexDirection:"column"}}>
                 {
-                rex_data_users.map(usu => (
-                    <Option value={usu.usuusuario}>{usu.usuusuario}</Option>
-                ))
+                    loadingUsers
+                    ? <div style={{display:"flex", flexDirection:"column", rowGap:"10px"}}>
+                        <Spin size='large'></Spin>
+                        <span style={{color:"white", fontSize:"18px"}}>Cargando usuarios</span>
+                    </div>
+                    : <>
+                        <Select
+                            placeholder='Seleccione su usuario'
+                            style={{ width:'200px'}}
+                            onChange={(value)=> {
+                                setUsuLogin({...usuLogin, usuemail : value})
+                            }}
+                        >
+                            {
+                            rex_data_users.map(usu => (
+                                <Option value={usu.usuusuario}>{usu.usuusuario}</Option>
+                            ))
+                            }
+                        </Select>
+                        <Input.Password
+                            style={{ width:'200px'}}
+                            onChange={(e)=> {
+                                setUsuLogin({...usuLogin, usupassword : e.target.value})
+                            }}
+                        />
+                        <Button
+                            onClick={()=> {
+                                setShowModalConfirm(true)
+                            }}
+                            className='Button-Login'
+                        >Ingresar</Button>
+                    </>
                 }
-            </Select>
-            <Button
-                onClick={()=> {
-                    if(usuLogin){
-                        setShowModalConfirm(true)
-                    }
-                }}
-                className='Button-Login'>Ingresar</Button>
+                
+
+            </div>
+            <ToastContainer />
             <Modal
                 centered={true}
                 title="Confirmar"
@@ -80,7 +119,7 @@ const Login = () => {
                 confirmLoading={confirmLoading}
                 onCancel={()=>setShowModalConfirm(false)}
             >
-                <p>Desea ingresar como: {usuLogin}?</p>
+                <p>Desea ingresar como: {usuLogin.usuemail}?</p>
             </Modal>
         </div>
     )
