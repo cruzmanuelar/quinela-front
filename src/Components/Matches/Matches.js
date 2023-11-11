@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Top from '../Top'
-import { Collapse, Row, Col, Modal, Table } from 'antd'
+import { Collapse, Row, Col, Modal, Table, Skeleton } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllMatchesReducers, GetPredictionsJourneyReducers } from '../../Redux/Actions/Matches/Matches'
+import {
+    ArrowUpOutlined
+} from "@ant-design/icons"
 import '../../Styles/Components/Matches.css'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
@@ -12,11 +15,14 @@ const Matches = () => {
     const { Panel } = Collapse
     const dispatch = useDispatch()
     const [ infoMatch, setInfoMatch ] = useState({pailocal:"", paivisitante :"", existJourney: false})
+    const [ loadingData, setLoadingData ] = useState(false)
 
     const [ showPredictions, setShowPredictions] = useState(false)
 
     const getData = () => {
+        setLoadingData(true)
         dispatch(GetAllMatchesReducers())
+        setLoadingData(false)
     }
 
     const {
@@ -32,7 +38,6 @@ const Matches = () => {
         setShowPredictions(true)
         setInfoMatch({...infoMatch, pailocal : match.partlocal.paiimagen, paivisitante : match.partvisitante.paiimagen, existJourney : true})
         let response = await dispatch(GetPredictionsJourneyReducers(match))
-        console.log(match)
     }
 
     const columns = [
@@ -85,8 +90,11 @@ const Matches = () => {
         <>
             <Top/>
             <Row>
-            {
-                rex_all_matches.map(dat => (
+                {
+                    loadingData
+                    ? <Skeleton active />
+                        
+                    : rex_all_matches.map(dat => (
                         <Col span={24}>
                             <Collapse
                             >
@@ -106,7 +114,7 @@ const Matches = () => {
                                                     onClick={() => {
                                                         showPredicionUsers(mat)
                                                     }}
-                                                span={4} style={{display:"flex", alignItems : "center", justifyContent:"center", backgroundColor:"#5e2129", color :"#FFFFFF", borderRadius:"4px"}}>
+                                                span={4} style={{display:"flex", alignItems : "center", justifyContent:"center", backgroundColor:"#5e2129", color :"#FFFFFF", borderRadius:"4px", cursor:"pointer"}}>
                                                     <span>{mat.parfinalizado?mat.pargoleslocal : ""} - {mat.parfinalizado?mat.pargolesvisitante : ""}</span>
                                                 </Col>
                                                 <Col span={10} style={{display:"flex", alignItems : "center"}}>
@@ -116,11 +124,18 @@ const Matches = () => {
                                             </Row>
                                         ))
                                     }
+                                    <Row>
+                                        <Col span={24}>
+                                            <div className='Text-Information-Matches'>
+                                            <ArrowUpOutlined />Click para ver predicciones
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 </Panel>
                             </Collapse>
                         </Col>
                 ))
-            }
+                }
             </Row>
             <Modal
                 title={<div style={{textAlign:'center'}}>Predicciones</div>}

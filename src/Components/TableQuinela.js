@@ -9,17 +9,20 @@ import {
 } from "@ant-design/icons"
 import { GetJourneysReducers } from '../Redux/Actions/Admin/Admin'
 
-const TableQuinela = ({loadingData}) => {
+const TableQuinela = () => {
 
     const dispatch = useDispatch()
+    const [ loadingData, setLoadingData ] = useState(false)
     const { Title } = Typography
 
     const [ filterJourney, setFilterJourney ] = useState("Todas")
 
     
     const getDataScore = async () => {
+        setLoadingData(true)
         await dispatch(GetScoreUsersReducers())
         await dispatch(GetJourneysReducers())
+        setLoadingData(false)
     }
 
     const {

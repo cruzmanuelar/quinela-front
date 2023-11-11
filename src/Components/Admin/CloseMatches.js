@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetNextMatchesReducers } from '../../Redux/Actions/Admin/Admin'
-import { Row, Col, Modal, Typography, InputNumber } from 'antd'
+import { Row, Col, Modal, Typography, InputNumber, Skeleton } from 'antd'
 import  "./../../Styles/Components/CloseMatches.css"
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,8 @@ const CloseMatches = () => {
 	const dispatch = useDispatch()
 	const [ closeMatch, setCloseMatch ] = useState(null)
 	const [ showCloseMatch, setShowCloseMatch ] = useState(false)
+	const [ loadingData, setLoadingData ] = useState(false)
+
 	const { Title } = Typography
 
 	const {
@@ -45,18 +47,24 @@ const CloseMatches = () => {
 		}
 	}
 
-	useEffect(() => {
-		dispatch(GetNextMatchesReducers())
-	}, [])
+	const getData = async() => {
+		setLoadingData(true)
+		await dispatch(GetNextMatchesReducers())
+		setLoadingData(false)
+
+	}
 
 	useEffect(() => {
-		dispatch(GetNextMatchesReducers())
+		getData()
 	}, [])
 
 	return (
 		<Row className='Container-Close-Matches'>
+			<Title level={4}>{`Finalizar partidos - Jornada ${rex_data_next_journey[0]?.fecfechas.fecjornada}`}</Title>
 			{
-				rex_data_next_journey.map(jou => {
+				loadingData
+				? <Skeleton active/>
+				: rex_data_next_journey.map(jou => {
 					return <Col span={24}>
 						<Row>
 							<Col span={8} style={{textAlign:"end", display:"flex", justifyContent:"end", alignItems:"center"}}>
@@ -81,6 +89,7 @@ const CloseMatches = () => {
 						</Row>
 					</Col>
 				})
+				
 			}
 			<Modal
 				open={showCloseMatch}

@@ -34,6 +34,8 @@ export const GetJourneysReducers = () => async (dispatch, getState) =>{
 export const SelectJourneyReducers = (id) => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
+    let response = false
+    let message = ""
 
     await fetch(config.apiUrl + "matches/select-next-journey",
         {
@@ -52,12 +54,16 @@ export const SelectJourneyReducers = (id) => async (dispatch, getState) =>{
     .then( res => res.json())
     .then(async data => {
         if(data.response){
+            response = true
             dispatch(GetNextMatchesReducers())
         }
+        message = data.message
     })
     .catch((error) => {
         console.log(error)
     })
+
+    return { response, message }
 }
 
 

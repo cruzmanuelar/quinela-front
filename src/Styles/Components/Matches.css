@@ -21,3 +21,11 @@
     height: 10px;
     background-color: #ffb3ba;
 }
+
+.Text-Information-Matches{
+    display: flex;
+    justify-content: center;
+    color: #5e2129;
+    font-weight: 700;
+    column-gap: 10px;
+}

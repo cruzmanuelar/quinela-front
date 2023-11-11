@@ -3,7 +3,7 @@ import JourneyMatches from './JourneyMatches'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetNextPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
 import TableQuinela from './TableQuinela'
-
+import { Skeleton } from 'antd'
 
 const Home = () => {
     
@@ -27,20 +27,26 @@ const Home = () => {
 
     return (
     <>
-        <JourneyMatches
-            title={"Jornada anterior"}
-            data={rex_prev_matches}
-            nextMatches={false}
-        />
-        <TableQuinela
-            loadingData={loadingData}
-        />
-        <JourneyMatches
-            title={"Jornada siguiente"}
-            data={rex_next_matches}
-            nextMatches={true}
-        />
-
+        {
+            loadingData
+            ? <Skeleton active />
+            : <JourneyMatches
+                title={"Jornada anterior - Fecha " + rex_prev_matches[0]?.fecfechas.fecjornada}
+                data={rex_prev_matches}
+                nextMatches={false}
+            />
+        }
+        
+        <TableQuinela/>
+        {
+            loadingData
+            ? <Skeleton active />
+            : <JourneyMatches
+                title={"Jornada siguiente - Fecha " + rex_next_matches[0]?.fecfechas.fecjornada}
+                data={rex_next_matches}
+                nextMatches={true}
+            />
+        }
     </>
   )
 }

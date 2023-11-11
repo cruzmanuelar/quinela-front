@@ -16,8 +16,7 @@ const Admin = () => {
 				<Title level={4}>Seleccionar próxima jornada</Title>
 				<SelectionJourney/>
 			</div>
-            <div style={{padding:"10px 20px"}}>
-				<Title level={4}>Finalizar partidos</Title>
+            <div style={{padding:"0 20px"}}>
 				<CloseMatches/>
 			</div>
         </div>

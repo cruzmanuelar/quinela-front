@@ -1,0 +1,11 @@
+
+.Table-Quinela .Column-Team{
+    display: flex;
+    justify-content: center;
+    column-gap: 1px;
+    align-items: center;
+    flex-direction: row;
+}
+.Table-Playoff{
+    font-weight: 600;
+}

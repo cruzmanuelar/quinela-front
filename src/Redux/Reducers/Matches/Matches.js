@@ -4,6 +4,7 @@ import {
     GET_ALL_MATCHES,
     GET_PREDICTIONS_JOURNEY,
     FORM_PREDICTION_NEXT_MATCHES,
+    GET_TABLE_POSITIONS
 } from "../../../Constants/Matches/Matches"
 
 const INIT_STATE = {
@@ -12,11 +13,17 @@ const INIT_STATE = {
     rex_all_matches     : [],
     rex_predictions_journey : [],
     rex_data_next_matches   : [],
-    rex_form_prediction_next_matches : []
+    rex_form_prediction_next_matches : [],
+    rex_table_positions : []
 }
 
 export default (state = INIT_STATE, action) => {
     switch(action.type){
+        case GET_TABLE_POSITIONS:
+            return {
+                ...state,
+                rex_table_positions: action.payload
+        }
         case GET_PREDICTIONS_JOURNEY:
             return {
                 ...state,

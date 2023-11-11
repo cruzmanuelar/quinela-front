@@ -2,15 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetJourneysReducers, SelectJourneyReducers } from '../../Redux/Actions/Admin/Admin'
 import { Button, Select } from 'antd'
+import { ToastContainer, toast } from 'react-toastify';
+import { LoadingOutlined } from '@ant-design/icons'
+import "react-toastify/dist/ReactToastify.css";
 
 const SelectionJourney = () => {
 
 	const dispatch = useDispatch()
 	const [journeySelected, setJourneySelected ] = useState(null)
+	const [ sendJourney, setSendJourney ] = useState(false)
 
 	const {
         rex_data_journeys,
     } = useSelector(({admin}) => admin)
+
+	const notifyAlert = (message) => toast.warn(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
+
+	const notifySuccess = (message) => toast.success(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
 
 	useEffect(()=> {
 		dispatch(GetJourneysReducers())
@@ -29,12 +41,19 @@ const SelectionJourney = () => {
 			<Button
 				type="primary" 
 				style={{width:"100%"}}
-				onClick={() => {
+				onClick={async () => {
 					if(journeySelected){
-						dispatch(SelectJourneyReducers(journeySelected))
+						setSendJourney(true)
+						let {response, message} = await dispatch(SelectJourneyReducers(journeySelected))
+						setSendJourney(false)
+						if(response){
+							notifySuccess(message)
+						}else{
+							notifyAlert(message)
+						}
 					}
 				}}
-			>Actualizar jornada</Button>
+			>{sendJourney ? <LoadingOutlined /> : "Actualizar jornada"}</Button>
 		</div>
 	)
 }

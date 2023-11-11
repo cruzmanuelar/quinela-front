@@ -1,6 +1,35 @@
-import { FORM_PREDICTION_NEXT_MATCHES, GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
+import { FORM_PREDICTION_NEXT_MATCHES, GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES, GET_TABLE_POSITIONS } from "../../../Constants/Matches/Matches"
 import { GetNextMatchesReducers } from "../Admin/Admin"
 import config from "./../../../config"
+
+export const GetTablePositionsReducers = () => async (dispatch, getState) =>{
+
+    const usutoken = localStorage.getItem('usutoken')
+
+    await fetch(config.apiUrl + "playoff/get-table",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+                "reqtoken" : usutoken 
+            },
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            dispatch({
+                type : GET_TABLE_POSITIONS,
+                payload : data.data
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
 
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
 
