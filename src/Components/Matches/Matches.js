@@ -19,12 +19,13 @@ const Matches = () => {
 	const navigate = useNavigate()
     const [ infoMatch, setInfoMatch ] = useState({pailocal:"", paivisitante :"", existJourney: false})
     const [ loadingData, setLoadingData ] = useState(false)
+    const [ loadingPredictions, setLoadingPredictions ] = useState(false)
 
     const [ showPredictions, setShowPredictions] = useState(false)
 
-    const getData = () => {
+    const getData = async() => {
         setLoadingData(true)
-        dispatch(GetAllMatchesReducers())
+        let response = await dispatch(GetAllMatchesReducers())
         setLoadingData(false)
     }
 
@@ -52,7 +53,9 @@ const Matches = () => {
     const showPredicionUsers = async (match) => {
         setShowPredictions(true)
         setInfoMatch({...infoMatch, pailocal : match.partlocal.paiimagen, paivisitante : match.partvisitante.paiimagen, existJourney : true})
+        setLoadingPredictions(true)
         let response = await dispatch(GetPredictionsJourneyReducers(match))
+        setLoadingPredictions(false)
     }
 
     const columns = [
@@ -169,10 +172,15 @@ const Matches = () => {
                             columns={columns}
                             dataSource={rex_predictions_journey}
                             className='Table-Quinela'
+                            loading={loadingPredictions}
                             rowClassName={(record)=> {
-                                let resultOk = record.pruresultado == record.parpartidos.parresultado
+                                let resultOk = ""
+                                if(record.parpartidos.parfinalizado){
+                                    resultOk = record.pruresultado == record.parpartidos.parresultado
+                                    return resultOk ? "Color-Succes" : "Color-Wrong"
+                                }
+                                return resultOk
 
-                                return resultOk ? "Color-Succes" : "Color-Wrong"
                             }}
                         />
                         <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>

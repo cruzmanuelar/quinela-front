@@ -6,6 +6,7 @@ import  "./../../Styles/Components/CloseMatches.css"
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { CloseMatchReducers } from '../../Redux/Actions/Matches/Matches'
+import { LoadingOutlined } from '@ant-design/icons'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
 
@@ -15,6 +16,7 @@ const CloseMatches = () => {
 	const [ closeMatch, setCloseMatch ] = useState(null)
 	const [ showCloseMatch, setShowCloseMatch ] = useState(false)
 	const [ loadingData, setLoadingData ] = useState(false)
+	const [ sendMatch, setSendCloseMatch ] = useState(false)
 
 	const { Title } = Typography
 
@@ -31,13 +33,14 @@ const CloseMatches = () => {
     });
 
 	const sendCloseMatch = async () => {
-		console.log(closeMatch)
 		if( !Number.isInteger(closeMatch.pargoleslocal) || !Number.isInteger(closeMatch.pargolesvisitante) ){
 			notifyAlert("Resultado invalido")
 			return false
 		}
 
+		setSendCloseMatch(true)
 		let { response, message } = await dispatch(CloseMatchReducers(closeMatch))
+		setSendCloseMatch(false)
 		if(response){
 			notifySuccess(message)
 			setShowCloseMatch(false)
@@ -118,7 +121,7 @@ const CloseMatches = () => {
 					setShowCloseMatch(false)
 				}}
 				title="Finalizar partido"
-				okText="Aceptar"
+				okText={sendCloseMatch ? <LoadingOutlined/>:"Aceptar"}
 				cancelText="Cancelar"
 				className='Modal-Close-Match'
 				centered={true}

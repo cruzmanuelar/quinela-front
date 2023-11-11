@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import {
     CloseOutlined
 } from "@ant-design/icons"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -48,10 +48,11 @@ const Login = () => {
         if(response){
             navigate('/home')
         }else{
+            console.log("response")
+            console.log(response)
             setShowModalConfirm(false)
             notify(message)
         }
-        console.log(usuLogin)
     }
 
     useEffect(()=> {
@@ -106,7 +107,7 @@ const Login = () => {
                 
 
             </div>
-            
+            <ToastContainer/>
             <Modal
                 centered={true}
                 title="Confirmar"

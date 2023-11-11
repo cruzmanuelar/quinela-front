@@ -87,9 +87,8 @@ export const LoginUserReducers = (user) => async (dispatch, getState) =>{
         if(data.response){
             response = true
             localStorage.setItem('usutoken', JSON.stringify(data.token));
-        }else{
-            message = data.message
         }
+        message = data.message
     })
     .catch((error) => {
         console.log(error)
