@@ -1,4 +1,5 @@
 import { FORM_PREDICTION_NEXT_MATCHES, GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES } from "../../../Constants/Matches/Matches"
+import { GetNextMatchesReducers } from "../Admin/Admin"
 import config from "./../../../config"
 
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
@@ -107,6 +108,41 @@ export const GetAllMatchesReducers = () => async (dispatch, getState) =>{
     })
 
     return response
+}
+
+export const CloseMatchReducers = (match) => async (dispatch, getState) =>{
+
+    let response = false
+    let message = ""
+
+    await fetch(config.apiUrl + "matches/endMatch",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+                req_partid : match.partid,
+                req_golLocal : match.pargoleslocal,
+                req_golVisitante : match.pargolesvisitante
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        message = data.message
+        if(data.response){
+            response = true
+            dispatch(GetNextMatchesReducers())
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return { response, message }
 }
 
 export const GetPredictionsJourneyReducers = (match) => async (dispatch, getState) =>{

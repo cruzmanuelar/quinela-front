@@ -107,7 +107,7 @@ const Matches = () => {
                                                         showPredicionUsers(mat)
                                                     }}
                                                 span={4} style={{display:"flex", alignItems : "center", justifyContent:"center", backgroundColor:"#5e2129", color :"#FFFFFF", borderRadius:"4px"}}>
-                                                    <span>{mat.pargoleslocal?mat.pargoleslocal : ""} - {mat.pargolesvisitante?mat.pargolesvisitante : ""}</span>
+                                                    <span>{mat.parfinalizado?mat.pargoleslocal : ""} - {mat.parfinalizado?mat.pargolesvisitante : ""}</span>
                                                 </Col>
                                                 <Col span={10} style={{display:"flex", alignItems : "center"}}>
                                                     <img className='Image-Country' src={cargarImagen(`./${mat.partvisitante.paiimagen}`)}/>

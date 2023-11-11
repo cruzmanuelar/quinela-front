@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetNextMatchesReducers } from '../../Redux/Actions/Admin/Admin'
 import { Row, Col, Modal, Typography, InputNumber } from 'antd'
 import  "./../../Styles/Components/CloseMatches.css"
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { CloseMatchReducers } from '../../Redux/Actions/Matches/Matches'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
+
 
 const CloseMatches = () => {
 
@@ -15,6 +19,35 @@ const CloseMatches = () => {
 	const {
         rex_data_next_journey,
     } = useSelector(({admin}) => admin)
+
+	const notifyAlert = (message) => toast.warn(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
+
+	const notifySuccess = (message) => toast.success(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
+
+	const sendCloseMatch = async () => {
+		console.log(closeMatch)
+		if( !Number.isInteger(closeMatch.pargoleslocal) || !Number.isInteger(closeMatch.pargolesvisitante) ){
+			notifyAlert("Resultado invalido")
+			return false
+		}
+
+		let { response, message } = await dispatch(CloseMatchReducers(closeMatch))
+		if(response){
+			notifySuccess(message)
+			setShowCloseMatch(false)
+			setCloseMatch({...closeMatch, pargoleslocal : null, pargolesvisitante: null})
+		}else{
+			notifyAlert(message)
+		}
+	}
+
+	useEffect(() => {
+		dispatch(GetNextMatchesReducers())
+	}, [])
 
 	useEffect(() => {
 		dispatch(GetNextMatchesReducers())
@@ -34,7 +67,7 @@ const CloseMatches = () => {
 									className='Container-Score'
 									onClick={() => {
 										if(!jou.parfinalizado){
-											setCloseMatch(jou)
+											setCloseMatch({...jou, pargoleslocal : 0, pargolesvisitante: 0})
 											setShowCloseMatch(true)
 										}
 									}}
@@ -54,17 +87,12 @@ const CloseMatches = () => {
 				onCancel={() => {
 					setShowCloseMatch(false)
 				}}
-				title="Cerrar partido"
+				title="Finalizar partido"
 				okText="Aceptar"
 				cancelText="Cancelar"
 				className='Modal-Close-Match'
 				centered={true}
-				onOk={async () => {
-					// const response = dispatch(SendQuinelaReducers())
-					// if(response){
-					// 	setShowForm(false)
-					// }
-				}}
+				onOk={ () => sendCloseMatch()}
 				confirmLoading={false}
 			>
 				<div>
@@ -84,12 +112,14 @@ const CloseMatches = () => {
                                 onChange={(value)=> {
 									setCloseMatch({...closeMatch, pargoleslocal : value})
 								}}
+								value={closeMatch?.pargoleslocal}
                                 min={0} max={20}
                             />
 							<InputNumber
                                 onChange={(value)=> {
 									setCloseMatch({...closeMatch, pargolesvisitante : value})
 								}}
+								value={closeMatch?.pargolesvisitante}
                                 min={0} max={20}
                             />
 							</div>
@@ -105,6 +135,7 @@ const CloseMatches = () => {
 					<span style={{padding:"0 20px"}}>* Esta accion es irreversible</span>
 				</div>
 			</Modal>
+			<ToastContainer />
 		</Row>	
 	)
 }

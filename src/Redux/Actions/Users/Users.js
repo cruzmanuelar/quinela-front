@@ -102,3 +102,37 @@ export const GetScoreUsersReducers = () => async (dispatch, getState) =>{
         console.log(error)
     })
 }
+
+export const GetScoreUsersJourneyReducers = (fecid) => async (dispatch, getState) =>{
+    await fetch(config.apiUrl + "users/scores-journey",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+                req_fecid : fecid
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            console.log(data)
+
+            const dataUsers = data.data.sort(function (a, b) {
+                return b.ptosTotal - a.ptosTotal;
+            });
+
+            dispatch({
+                type : GET_SCORE_USERS,
+                payload : dataUsers
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}

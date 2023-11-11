@@ -34,7 +34,7 @@ const SelectionJourney = () => {
 						dispatch(SelectJourneyReducers(journeySelected))
 					}
 				}}
-			>Actualizar</Button>
+			>Actualizar jornada</Button>
 		</div>
 	)
 }

@@ -1,27 +1,38 @@
-import { Table, Typography, Pagination } from 'antd'
+import { Table, Typography, Pagination, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetScoreUsersReducers } from '../Redux/Actions/Users/Users'
+import { GetScoreUsersJourneyReducers, GetScoreUsersReducers } from '../Redux/Actions/Users/Users'
 import '../Styles/Components/TableQuinela.css'
 import {
     UserOutlined,
     FireOutlined
 } from "@ant-design/icons"
+import { GetJourneysReducers } from '../Redux/Actions/Admin/Admin'
 
 const TableQuinela = ({loadingData}) => {
 
     const dispatch = useDispatch()
     const { Title } = Typography
 
+    const [ filterJourney, setFilterJourney ] = useState("Todas")
+
     
     const getDataScore = async () => {
         await dispatch(GetScoreUsersReducers())
+        await dispatch(GetJourneysReducers())
     }
+
+    const {
+        rex_data_journeys,
+    } = useSelector(({admin}) => admin)
 
     const {
         rex_score_users,
     } = useSelector(({users}) => users)
 
+    const getFilterJourney = async (value) => {
+        dispatch(GetScoreUsersJourneyReducers(value))
+    }
     
     useEffect(()=> {
         getDataScore()
@@ -68,11 +79,36 @@ const TableQuinela = ({loadingData}) => {
     return (
         <div className='Container-Table-Quinela'>
             <Title className='Title-Table-Quinela' level={4}>Tabla de posiciones</Title>
+            <div style={{margin:"10px 10px", display:"flex", alignItems:"center", columnGap:"10px"}}>
+                <span>Filtrar por fecha:</span>
+                <Select
+                    style={{width:"200px"}}
+                    value={filterJourney}
+                    size='small'
+                    options={rex_data_journeys}
+                    allowClear={true}
+                    onClear={() => {
+                        dispatch(GetScoreUsersReducers())
+                    }}
+                    onChange={(value) => {
+                        const labelFilter = rex_data_journeys.find(jou => jou.value == value)
+                        if(labelFilter){
+                            setFilterJourney(labelFilter.label)
+                            getFilterJourney(value)
+                        }else{
+                            setFilterJourney("Todas")
+                        }
+                    }}
+                    
+                >
+
+                </Select>
+            </div>
             <Table
                 loading={loadingData}
                 columns={columns}
                 pagination={{
-                    position: ['topCenter'],
+                    position: ['bottomRight'],
                 }}
                 className='Table-Quinela'
                 size='small'
