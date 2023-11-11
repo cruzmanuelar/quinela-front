@@ -9,3 +9,7 @@
 .Table-Playoff{
     font-weight: 600;
 }
+
+.Modal-Positions .ant-modal-content{
+    padding: 20px 2px !important;
+}

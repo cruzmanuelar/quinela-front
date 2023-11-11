@@ -4,8 +4,8 @@ import Login from './Components/Login';
 import Matches from './Components/Matches/Matches';
 import Admin from './Components/Admin/Admin';
 
-
 const App = () => {
+
 	return (
 		<>
 		<Routes>

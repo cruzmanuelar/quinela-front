@@ -7,6 +7,8 @@ import {
     ArrowUpOutlined
 } from "@ant-design/icons"
 import '../../Styles/Components/Matches.css'
+import { UserValidationReducers } from '../../Redux/Actions/Users/Users'
+import { useNavigate } from 'react-router-dom'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
 const Matches = () => {
@@ -14,6 +16,7 @@ const Matches = () => {
 
     const { Panel } = Collapse
     const dispatch = useDispatch()
+	const navigate = useNavigate()
     const [ infoMatch, setInfoMatch ] = useState({pailocal:"", paivisitante :"", existJourney: false})
     const [ loadingData, setLoadingData ] = useState(false)
 
@@ -29,6 +32,18 @@ const Matches = () => {
         rex_all_matches,
         rex_predictions_journey
     } = useSelector(({matches}) => matches)
+
+	const userValidation = async () => {
+		let response = await dispatch(UserValidationReducers())
+		if(!response){
+			navigate("/")
+		}
+		return response
+	}
+
+	useEffect(()=> {
+		userValidation()
+	},[])
 
     useEffect(() => {
         getData()
@@ -168,6 +183,7 @@ const Matches = () => {
                         </>
                 : null
                 }
+                
             </Modal>
         </>
     )

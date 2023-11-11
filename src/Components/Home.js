@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetNextPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
 import TableQuinela from './TableQuinela'
 import { Skeleton } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { UserValidationReducers } from '../Redux/Actions/Users/Users'
 
 const Home = () => {
     
     const dispatch = useDispatch()
     const [loadingData, setLoadingData ] = useState(false)
+    const navigate = useNavigate()
 
     const {
         rex_next_matches,
@@ -21,6 +24,18 @@ const Home = () => {
         setLoadingData(false)
     }
 
+    const userValidation = async () => {
+		let response = await dispatch(UserValidationReducers())
+		if(!response){
+			navigate("/")
+		}
+		return response
+	}
+
+	useEffect(()=> {
+		userValidation()
+	},[])
+    
     useEffect(()=>{
         getData()
     },[])

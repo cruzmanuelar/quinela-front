@@ -67,6 +67,43 @@ export const SelectJourneyReducers = (id) => async (dispatch, getState) =>{
 }
 
 
+export const DisableMatchReducers = (id, status) => async (dispatch, getState) =>{
+
+    let response = false
+    let message = ""
+    const usutoken = localStorage.getItem('usutoken')
+
+    await fetch(config.apiUrl + "matches/disable-match",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+                "reqtoken" : usutoken
+            },
+            body : JSON.stringify({
+                req_partid : id,
+                req_status  : status
+            })
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            response = true
+            dispatch(GetNextMatchesReducers())
+        }
+        message = data.message
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return { response, message }
+}
+
+
 export const GetNextMatchesReducers = (id) => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')

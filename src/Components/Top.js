@@ -86,26 +86,6 @@ const Top = () => {
 					<Avatar style={{backgroundColor:"white", cursor:"pointer"}} size={28}  icon={<UserOutlined style={{color:"black"}} />} />
 				</a>
 			</Dropdown>
-			{/* <div style={{display:"flex", columnGap:"10px"}}>
-				<Button
-					size='small'
-					onClick={()=> setShowTableGeneral(true)}
-				>
-					< TableOutlined/>
-				</Button>
-				<Button
-					size='small'
-
-				>
-					<CalendarOutlined />
-				</Button>
-				<Button 
-					size='small'
-					
-				>
-					<LogoutOutlined />
-				</Button>
-			</div> */}
 			<TableGeneral
 				showTableGeneral={showTableGeneral}
 				setShowTableGeneral={setShowTableGeneral}

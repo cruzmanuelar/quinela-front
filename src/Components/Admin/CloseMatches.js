@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetNextMatchesReducers } from '../../Redux/Actions/Admin/Admin'
+import { DisableMatchReducers, GetNextMatchesReducers } from '../../Redux/Actions/Admin/Admin'
 import { Row, Col, Modal, Typography, InputNumber, Skeleton } from 'antd'
 import  "./../../Styles/Components/CloseMatches.css"
 import { ToastContainer, toast } from 'react-toastify';
@@ -85,6 +85,27 @@ const CloseMatches = () => {
 							</Col>
 							<Col span={8} style={{display:"flex", alignItems:"center"}}>
 							<img className='Image-Country' src={cargarImagen(`./${jou.partvisitante.paiimagen}`)}/><div>{jou.partvisitante.painombre}</div>
+							</Col>
+						</Row>
+						<Row style={{display:"flex", justifyContent:"center", marginBottom:"5px"}}>
+							<Col 
+								style={{width:"200px" , backgroundColor:"#08979c", color:"white",  borderRadius:"0 0 3px 3px", cursor :"pointer"}}
+								onClick={async () => {
+									let { response, message } = await dispatch(DisableMatchReducers(jou.partid, !jou.parhabilitado))
+									if(response){
+										notifySuccess(message)
+									}else{
+										notifyAlert(message)
+									}
+								}}
+							>
+								<div style={{display:"flex", justifyContent:"center"}}>
+									{
+										jou.parhabilitado
+										? "Bloquear predicciones"
+										: "Predicciones bloqueadas"
+									}
+								</div>
 							</Col>
 						</Row>
 					</Col>

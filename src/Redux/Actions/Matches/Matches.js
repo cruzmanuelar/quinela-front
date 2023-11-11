@@ -78,6 +78,7 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
     const usutoken = localStorage.getItem('usutoken')
 
     let response = false
+    let message = ""
     const dataQuinela = getState().matches.rex_form_prediction_next_matches
 
     await fetch(config.apiUrl + "matches/create-quinela",
@@ -100,12 +101,13 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
             response = true
             dispatch(GetNextPrevMatchesReducers())
         }
+        message = data.message
     })
     .catch((error) => {
         console.log(error)
     })
 
-    return response
+    return {response, message}
 }
 
 export const GetAllMatchesReducers = () => async (dispatch, getState) =>{
@@ -143,14 +145,16 @@ export const CloseMatchReducers = (match) => async (dispatch, getState) =>{
 
     let response = false
     let message = ""
+    const usutoken = localStorage.getItem('usutoken')
 
-    await fetch(config.apiUrl + "matches/endMatch",
+    await fetch(config.apiUrl + "matches/end-match",
         {
             mode: "cors",
             method : "POST",
             headers : {
                 "Accept": "application/json",
                 "Content-type":"application/json",
+                "reqtoken" : usutoken
             },
             body : JSON.stringify({
                 req_partid : match.partid,

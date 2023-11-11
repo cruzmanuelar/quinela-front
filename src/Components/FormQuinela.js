@@ -1,32 +1,42 @@
 import { Col, InputNumber , Modal, Row } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './../Styles/Components/FormQuinela.css'
 import { EditFormQuinelaReducers, SendQuinelaReducers } from '../Redux/Actions/Matches/Matches';
+import { LoadingOutlined } from '@ant-design/icons'
 
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
+const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
 
-
-const FormQuinela = ({showForm, setShowForm}) => {
+    const [ sendQuinela, setSendQuinela ] = useState(false)
+    const dispatch = useDispatch()
 
     const {
         rex_next_matches,
     } = useSelector(({matches}) => matches)
 
-    const dispatch = useDispatch()
+    useEffect(() => {
+
+    },[showForm])
+
     return (
         <Modal
             centered={true}
             title={<div style={{textAlign:'center'}}>Editar Quinela</div>}
             open={showForm}
             closeIcon={null}
-            okText='Enviar'
+            okText={sendQuinela ? <LoadingOutlined/> :'Enviar'}
             cancelText='Cancelar'
             onOk={async () => {
-                const response = dispatch(SendQuinelaReducers())
+                setSendQuinela(true)
+                const {response, message} = await dispatch(SendQuinelaReducers())
+                setSendQuinela(false)
                 if(response){
                     setShowForm(false)
+                    notifySuccess(message)
+                }else{
+                    notifyAlert(message)
                 }
             }}
             confirmLoading={false}
@@ -68,13 +78,13 @@ const FormQuinela = ({showForm, setShowForm}) => {
                                 defaultValue={rex_next_matches[1]['predictionLocal']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(1, 'predictionLocal', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[1]["parhabilitado"]}
                             />
                             <InputNumber
                                 defaultValue={rex_next_matches[1]['predictionVisitante']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(1, 'predictionVisitante', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[1]["parhabilitado"]}
                             />
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
@@ -90,13 +100,13 @@ const FormQuinela = ({showForm, setShowForm}) => {
                                 defaultValue={rex_next_matches[2]['predictionLocal']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(2, 'predictionLocal', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[2]["parhabilitado"]}
                             />
                             <InputNumber
                                 defaultValue={rex_next_matches[2]['predictionVisitante']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(2, 'predictionVisitante', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[2]["parhabilitado"]}
                             />
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
@@ -112,13 +122,13 @@ const FormQuinela = ({showForm, setShowForm}) => {
                                 defaultValue={rex_next_matches[3]['predictionLocal']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(3, 'predictionLocal', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[3]["parhabilitado"]}
                             />
                             <InputNumber
                                 defaultValue={rex_next_matches[3]['predictionVisitante']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(3, 'predictionVisitante', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[3]["parhabilitado"]}
                             />
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
@@ -134,13 +144,13 @@ const FormQuinela = ({showForm, setShowForm}) => {
                                 defaultValue={rex_next_matches[4]['predictionLocal']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(4, 'predictionLocal', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[4]["parhabilitado"]}
                             />
                             <InputNumber
                                 defaultValue={rex_next_matches[4]['predictionVisitante']}
                                 onChange={(value)=> dispatch(EditFormQuinelaReducers(4, 'predictionVisitante', value))}
                                 min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
+                                disabled={!rex_next_matches[4]["parhabilitado"]}
                             />
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>

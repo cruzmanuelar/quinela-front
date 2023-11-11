@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography } from 'antd'
 import Top from '../Top'
 import SelectionJourney from './SelectionJourney'
 import CloseMatches from './CloseMatches'
+import { useNavigate } from 'react-router-dom'
+import { UserValidationReducers } from '../../Redux/Actions/Users/Users'
+import { useDispatch } from 'react-redux'
 
 const Admin = () => {
 
 	const { Title } = Typography
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
+    const userValidation = async () => {
+		let response = await dispatch(UserValidationReducers())
+		if(!response){
+			navigate("/")
+		}
+		return response
+	}
+
+	useEffect(()=> {
+		userValidation()
+	},[])
 
     return (
         <div>

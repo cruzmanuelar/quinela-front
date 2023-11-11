@@ -5,6 +5,35 @@ import {
 } from "../../../Constants/Users/Users"
 import config from "./../../../config"
 
+export const UserValidationReducers = () => async (dispatch, getState) =>{
+
+    let usutoken = await localStorage.getItem("usutoken")
+    let response = false
+
+    await fetch(config.apiUrl + "users/user-validation",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+                "usutoken" : usutoken
+            },
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            response = true
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    return response
+}
+
 export const GetUsersReducers = () => async (dispatch, getState) =>{
 
     await fetch(config.apiUrl + "users/all",

@@ -5,6 +5,8 @@ import FormQuinela from './FormQuinela';
 import {
     AlertOutlined
 } from "@ant-design/icons"
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 const cargarImagen = require.context("/src/Assets/images/icons", true);
 
 const JourneyMatches = ({title, data, nextMatches}) => {
@@ -12,6 +14,14 @@ const JourneyMatches = ({title, data, nextMatches}) => {
     const { Panel } = Collapse
     const [ showPredictions, setShowPredictions ] = useState(false)
     const [ showForm, setShowForm ] = useState(false)
+
+    const notifyAlert = (message) => toast.warn(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
+
+	const notifySuccess = (message) => toast.success(message, {
+        position: toast.POSITION.TOP_CENTER
+    });
 
     return (
 
@@ -77,10 +87,12 @@ const JourneyMatches = ({title, data, nextMatches}) => {
             </Collapse>
                 : null
             }
-
+            <ToastContainer/>
             <FormQuinela
                 showForm={showForm}
                 setShowForm={setShowForm}
+                notifyAlert={(message)=> notifyAlert(message)}
+                notifySuccess={(message)=> notifySuccess(message)}
             />
         </div> 
     )

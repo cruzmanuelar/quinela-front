@@ -161,7 +161,7 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
 			footer={null}
 			width={800}
 			onCancel={()=> setShowTableGeneral(false)}
-			className='Modal-Form-Quinela'
+			className='Modal-Form-Quinela Modal-Positions'
 		>
 			<Table
 				className='Table-Quinela Table-Playoff'

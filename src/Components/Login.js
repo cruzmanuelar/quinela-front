@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import {
     CloseOutlined
 } from "@ant-design/icons"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -93,6 +93,7 @@ const Login = () => {
                             onChange={(e)=> {
                                 setUsuLogin({...usuLogin, usupassword : e.target.value})
                             }}
+                            placeholder="Clave"
                         />
                         <Button
                             onClick={()=> {
@@ -105,7 +106,7 @@ const Login = () => {
                 
 
             </div>
-            <ToastContainer />
+            
             <Modal
                 centered={true}
                 title="Confirmar"
