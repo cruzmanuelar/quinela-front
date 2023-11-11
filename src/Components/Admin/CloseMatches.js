@@ -60,7 +60,7 @@ const CloseMatches = () => {
 
 	return (
 		<Row className='Container-Close-Matches'>
-			<Title level={4}>{`Finalizar partidos - Jornada ${rex_data_next_journey[0]?.fecfechas.fecjornada}`}</Title>
+			<Title level={4}>{`Finalizar partidos - Jornada ${rex_data_next_journey[0] ? rex_data_next_journey[0].fecfechas.fecjornada : ""}`}</Title>
 			{
 				loadingData
 				? <Skeleton active/>
