@@ -121,7 +121,7 @@ const CloseMatches = () => {
 					setShowCloseMatch(false)
 				}}
 				title="Finalizar partido"
-				okText={sendCloseMatch ? <LoadingOutlined/>:"Aceptar"}
+				okText={sendMatch ? <LoadingOutlined/>:"Aceptar"}
 				cancelText="Cancelar"
 				className='Modal-Close-Match'
 				centered={true}
