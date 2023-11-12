@@ -20,8 +20,8 @@ const TableQuinela = () => {
     
     const getDataScore = async () => {
         setLoadingData(true)
-        await dispatch(GetScoreUsersReducers())
-        await dispatch(GetJourneysReducers())
+        let response = await dispatch(GetScoreUsersReducers())
+        let responseJourneys = await dispatch(GetJourneysReducers())
         setLoadingData(false)
     }
 
