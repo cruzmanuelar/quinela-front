@@ -50,7 +50,6 @@ const TableQuinela = () => {
             render : (_, record) => (
                 <div style={{width:"100%", display:"flex", justifyContent:"center", columnGap:"3px"}}>
                         <UserOutlined />{record.user}
-                        {record.key == 1 && <FireOutlined style={{color:"red"}}/>}             
                 </div>
             )
         },
