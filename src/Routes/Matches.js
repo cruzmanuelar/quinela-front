@@ -8,7 +8,7 @@ import {
     GetPredictionsJourneyReducers
 } from '../Redux/Actions/Matches/Matches'
 import { UserValidationReducers } from '../Redux/Actions/Users/Users'
-import '../Styles/Components/Matches.css'
+import '../Styles/Matches.css'
 import {
     ArrowUpOutlined
 } from "@ant-design/icons"
