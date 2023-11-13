@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Top from '../Top'
-import { Collapse, Row, Col, Modal, Table, Skeleton } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllMatchesReducers, GetPredictionsJourneyReducers } from '../../Redux/Actions/Matches/Matches'
+import { useNavigate } from 'react-router-dom'
+import { Collapse, Row, Col, Modal, Table, Skeleton } from 'antd'
+import Top from '../Components/Top'
+import { 
+    GetAllMatchesReducers,
+    GetPredictionsJourneyReducers
+} from '../Redux/Actions/Matches/Matches'
+import { UserValidationReducers } from '../Redux/Actions/Users/Users'
+import '../Styles/Components/Matches.css'
 import {
     ArrowUpOutlined
 } from "@ant-design/icons"
-import '../../Styles/Components/Matches.css'
-import { UserValidationReducers } from '../../Redux/Actions/Users/Users'
-import { useNavigate } from 'react-router-dom'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
 const Matches = () => {
@@ -37,7 +40,7 @@ const Matches = () => {
 	const userValidation = async () => {
 		let response = await dispatch(UserValidationReducers())
 		if(!response){
-			navigate("/")
+			navigate("/login")
 		}
 		return response
 	}

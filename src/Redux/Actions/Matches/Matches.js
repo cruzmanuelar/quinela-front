@@ -1,6 +1,13 @@
-import { FORM_PREDICTION_NEXT_MATCHES, GET_ALL_MATCHES, GET_NEXT_MATCHES, GET_PREDICTIONS_JOURNEY, GET_PREV_MATCHES, GET_TABLE_POSITIONS } from "../../../Constants/Matches/Matches"
-import { GetNextMatchesReducers } from "../Admin/Admin"
 import config from "./../../../config"
+import { 
+    FORM_PREDICTION_NEXT_MATCHES, 
+    GET_ALL_MATCHES, 
+    GET_NEXT_MATCHES, 
+    GET_PREDICTIONS_JOURNEY, 
+    GET_PREV_MATCHES, 
+    GET_TABLE_POSITIONS 
+} from "../../../Constants/Matches/Matches"
+import { GetNextMatchesReducers } from "../Admin/Admin"
 
 export const GetTablePositionsReducers = () => async (dispatch, getState) =>{
 

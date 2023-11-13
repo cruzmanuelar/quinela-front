@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
-import { Typography } from 'antd'
-import Top from '../Top'
-import SelectionJourney from './SelectionJourney'
-import CloseMatches from './CloseMatches'
 import { useNavigate } from 'react-router-dom'
-import { UserValidationReducers } from '../../Redux/Actions/Users/Users'
 import { useDispatch } from 'react-redux'
+import { Typography } from 'antd'
+import Top from '../Components/Top'
+import SelectionJourney from './../Components/Admin/SelectionJourney'
+import CloseMatches from './../Components/Admin/CloseMatches'
+import { 
+    UserValidationReducers 
+} from '../Redux/Actions/Users/Users'
 
 const Admin = () => {
 
@@ -16,7 +18,7 @@ const Admin = () => {
     const userValidation = async () => {
 		let response = await dispatch(UserValidationReducers())
 		if(!response){
-			navigate("/")
+			navigate("/login")
 		}
 		return response
 	}

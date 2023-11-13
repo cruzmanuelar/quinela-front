@@ -27,7 +27,7 @@ const Home = () => {
     const userValidation = async () => {
 		let response = await dispatch(UserValidationReducers())
 		if(!response){
-			navigate("/")
+			navigate("/login")
 		}
 		return response
 	}

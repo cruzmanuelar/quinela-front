@@ -1,9 +1,9 @@
 
+import config from "./../../../config"
 import { 
     GET_SCORE_USERS,
     GET_DATA_USERS
 } from "../../../Constants/Users/Users"
-import config from "./../../../config"
 
 export const UserValidationReducers = () => async (dispatch, getState) =>{
 

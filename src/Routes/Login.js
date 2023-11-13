@@ -1,9 +1,9 @@
-import { Select, Typography, Button, Modal, Input, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetUsersReducers, LoginUserReducers } from '../Redux/Actions/Users/Users'
-import './../Styles/Components/Login.css'
 import { useNavigate } from 'react-router-dom'
+import { Select, Typography, Button, Modal, Input, Spin } from 'antd'
+import './../Styles/Components/Login.css'
+import { GetUsersReducers, LoginUserReducers } from '../Redux/Actions/Users/Users'
 import {
     CloseOutlined
 } from "@ant-design/icons"

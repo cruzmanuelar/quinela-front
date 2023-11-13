@@ -1,5 +1,8 @@
-import { GET_DATA_JOURNEYS, GET_DATA_NEXT_JOURNEY } from "../../../Constants/Admin/Admin"
 import config from "./../../../config"
+import { 
+    GET_DATA_JOURNEYS,
+    GET_DATA_NEXT_JOURNEY
+} from "../../../Constants/Admin/Admin"
 
 export const GetJourneysReducers = () => async (dispatch, getState) =>{
 
