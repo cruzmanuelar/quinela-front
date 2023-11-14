@@ -4,12 +4,14 @@ import {
     GET_ALL_MATCHES,
     GET_PREDICTIONS_JOURNEY,
     FORM_PREDICTION_NEXT_MATCHES,
-    GET_TABLE_POSITIONS
+    GET_TABLE_POSITIONS,
+    SEND_FORM_QUINELA
 } from "../../../Constants/Matches/Matches"
 
 const INIT_STATE = {
     rex_next_matches    : [],
     rex_prev_matches    : [],
+    rex_send_form_quinela : false,
     rex_all_matches     : [],
     rex_predictions_journey : [],
     rex_data_next_matches   : [],
@@ -23,6 +25,11 @@ export default (state = INIT_STATE, action) => {
             return {
                 ...state,
                 rex_table_positions: action.payload
+        }
+        case SEND_FORM_QUINELA:
+            return {
+                ...state,
+                rex_send_form_quinela: action.payload
         }
         case GET_PREDICTIONS_JOURNEY:
             return {

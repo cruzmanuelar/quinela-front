@@ -19,6 +19,10 @@ const JourneyMatches = ({title, data, nextMatches}) => {
         position: toast.POSITION.TOP_CENTER
     });
 
+    const {
+        rex_send_form_quinela,
+    } = useSelector(({matches}) => matches)
+
 	const notifySuccess = (message) => toast.success(message, {
         position: toast.POSITION.TOP_CENTER
     });
@@ -35,7 +39,9 @@ const JourneyMatches = ({title, data, nextMatches}) => {
                         {
                             nextMatches
                             ? <div className='Container-Button-Add'>
-                                <Button onClick={()=> setShowForm(true)} className='Button-Add-Quinela'>Editar Quinela</Button>
+                                <Button onClick={()=> setShowForm(true)} className='Button-Add-Quinela'>
+                                    {rex_send_form_quinela ? "Actualizando" : "Editar Quinela"}
+                                    </Button>
                             </div>
                             : <div className='Container-Button-Add'>
                                 <Button onClick={() => setShowPredictions(!showPredictions)} className='Button-Add-Quinela'>{`${showPredictions ? "Ocultar" : "Mostrar"} mi ultima prediccion`}</Button>

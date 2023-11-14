@@ -5,7 +5,8 @@ import {
     GET_NEXT_MATCHES, 
     GET_PREDICTIONS_JOURNEY, 
     GET_PREV_MATCHES, 
-    GET_TABLE_POSITIONS 
+    GET_TABLE_POSITIONS, 
+    SEND_FORM_QUINELA
 } from "../../../Constants/Matches/Matches"
 import { GetNextMatchesReducers } from "../Admin/Admin"
 
@@ -84,6 +85,11 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
 
+    dispatch({
+        type : SEND_FORM_QUINELA,
+        payload : true
+    })
+
     let response = false
     let message = ""
     const dataQuinela = getState().matches.rex_form_prediction_next_matches
@@ -106,7 +112,11 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
     .then(async data => {
         if(data.response){
             response = true
-            dispatch(GetNextPrevMatchesReducers())
+            let responseNext = await dispatch(GetNextPrevMatchesReducers())
+            dispatch({
+                type : SEND_FORM_QUINELA,
+                payload : false
+            })        
         }
         message = data.message
     })
