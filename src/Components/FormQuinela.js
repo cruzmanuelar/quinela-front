@@ -80,7 +80,7 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                                             <Popover
                                                 content={()=>contentLastMatches(rex_next_matches[index]['partlocal']['lastMatches'])} 
                                                 trigger="click"
-                                                placement="right"
+                                                placement="bottom"
                                                 arrow={false}
                                                 overlayInnerStyle={{backgroundColor:"#5e2129"}}
                                                 overlayClassName="PopOver-Last-Games"
@@ -109,7 +109,7 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                                             <Popover
                                                 content={()=>contentLastMatches(rex_next_matches[index]['partvisitante']['lastMatches'])} 
                                                 trigger="click"
-                                                placement="left"
+                                                placement="bottom"
                                                 overlayInnerStyle={{backgroundColor:"#5e2129"}}
                                                 arrow={false}
                                                 overlayClassName="PopOver-Last-Games"
