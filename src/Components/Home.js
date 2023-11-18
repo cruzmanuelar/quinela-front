@@ -20,13 +20,11 @@ const Home = () => {
     } = useSelector(({matches}) => matches)
 
     const getData = async () => {
-        try {
-            await Promise.all([
-                dispatch(GetNextPrevMatchesReducers()),
-                dispatch(GetPrevMatchesReducers())
-            ]);
-        } catch (error) {
-            console.error('Error:', error);
+        if(rex_prev_matches.length == 0){
+            await dispatch(GetNextPrevMatchesReducers())
+        }
+        if(rex_next_matches.length == 0){
+            await dispatch(GetPrevMatchesReducers())
         }
     }
 
