@@ -125,6 +125,9 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                 </>
                 : null
             }
+            <div style={{color:"#5e2129"}}>
+                * Click en el pais para ver sus ultimos resultados
+            </div>
         </Modal>
     )
 }
