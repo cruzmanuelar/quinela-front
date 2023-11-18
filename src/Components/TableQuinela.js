@@ -38,7 +38,9 @@ const TableQuinela = () => {
 
     const getFilterJourney = async (value) => {
         setLoadingData(true)
-        let response = await dispatch(GetScoreUsersJourneyReducers(value))
+        if(rex_score_users.length == 0){
+            let response = await dispatch(GetScoreUsersJourneyReducers(value))
+        }
         setLoadingData(false)
     }
 
