@@ -10,7 +10,8 @@ import {
 import { UserValidationReducers } from '../Redux/Actions/Users/Users'
 import '../Styles/Matches.css'
 import {
-    ArrowUpOutlined
+    ArrowUpOutlined,
+    FireOutlined
 } from "@ant-design/icons"
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
@@ -61,6 +62,10 @@ const Matches = () => {
         setLoadingPredictions(false)
     }
 
+    const IconOnFire = () => {
+        return <FireOutlined style={{color : "red"}}/>
+    }
+
     const columns = [
         {
             title: 'Usuario',
@@ -68,8 +73,9 @@ const Matches = () => {
             key: 'usuusuario',
             align: 'center',
             render : (_, record) => (
-                <div>
+                <div style={{display:"flex", columnGap :"5px", justifyContent:"center"}}>
                     {record.usuusuarios.usuusuario}
+                    {record.onFire && <IconOnFire/>}
                 </div>
             )
         },
@@ -170,6 +176,14 @@ const Matches = () => {
                 {
                     rex_predictions_journey.length > 0
                     ?   <>
+                        <div style={{display:"flex", columnGap:"3px"}}>
+                            <span style={{ color:"#5e2129", fontWeight:"500"}}>Marcador: <IconOnFire/> Acertó</span>
+                        </div>
+                        <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>
+                            <div>Resultado:</div>
+                            <div className='Box-Prediction-Ok'></div><span>Acertó</span>
+                            <div className='Box-Prediction-Failed'></div><span>Falló</span>
+                        </div>
                         <Table
                             size='small'
                             columns={columns}
@@ -186,11 +200,6 @@ const Matches = () => {
 
                             }}
                         />
-                        <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>
-                            <div>Resultado:</div>
-                            <div className='Box-Prediction-Ok'></div><span>Acertó</span>
-                            <div className='Box-Prediction-Failed'></div><span>Falló</span>
-                        </div>
                         </>
                 : null
                 }
