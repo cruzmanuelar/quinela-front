@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import JourneyMatches from './JourneyMatches'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetNextPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
+import { GetNextPrevMatchesReducers, GetPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
 import TableQuinela from './TableQuinela'
 import { Skeleton } from 'antd'
 import { useNavigate } from 'react-router-dom'
@@ -21,6 +21,7 @@ const Home = () => {
     const getData = async () => {
         setLoadingData(true)
         await dispatch(GetNextPrevMatchesReducers())
+        await dispatch(GetPrevMatchesReducers())
         setLoadingData(false)
     }
 

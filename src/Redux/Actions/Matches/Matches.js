@@ -39,6 +39,37 @@ export const GetTablePositionsReducers = () => async (dispatch, getState) =>{
     })
 }
 
+export const GetPrevMatchesReducers = () => async (dispatch, getState) =>{
+
+    const usutoken = localStorage.getItem('usutoken')
+
+    await fetch(config.apiUrl + "matches/prev",
+        {
+            mode: "cors",
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-type":"application/json",
+                "reqtoken" : usutoken 
+            },
+        },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            dispatch({
+                type : GET_PREV_MATCHES,
+                payload : data.data.prevMatches
+            })
+
+            console.log(data)
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
@@ -52,9 +83,6 @@ export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
                 "Content-type":"application/json",
                 "reqtoken" : usutoken 
             },
-            body : JSON.stringify({
-                req_id : "OK"
-            })
         },
     )
     .then( res => res.json())

@@ -16,15 +16,7 @@ const TableQuinela = () => {
     const { Title } = Typography
 
     const [ filterJourney, setFilterJourney ] = useState("Todas")
-
     
-    const getDataScore = async () => {
-        setLoadingData(true)
-        let response = await dispatch(GetScoreUsersReducers())
-        let responseJourneys = await dispatch(GetJourneysReducers())
-        setLoadingData(false)
-    }
-
     const {
         rex_data_journeys,
     } = useSelector(({admin}) => admin)
@@ -32,6 +24,16 @@ const TableQuinela = () => {
     const {
         rex_score_users,
     } = useSelector(({users}) => users)
+
+    
+    const getDataScore = async () => {
+        setLoadingData(true)
+        let response = await dispatch(GetScoreUsersReducers())
+        if(rex_data_journeys.length == 0){
+            let responseJourneys = await dispatch(GetJourneysReducers())
+        }
+        setLoadingData(false)
+    }
 
     const getFilterJourney = async (value) => {
         dispatch(GetScoreUsersJourneyReducers(value))

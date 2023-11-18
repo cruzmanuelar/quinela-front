@@ -25,7 +25,9 @@ const SelectionJourney = () => {
     });
 
 	useEffect(()=> {
-		dispatch(GetJourneysReducers())
+		if(rex_data_journeys.length = 0){
+			dispatch(GetJourneysReducers())
+		}
 	}, [])
 
 	return (
