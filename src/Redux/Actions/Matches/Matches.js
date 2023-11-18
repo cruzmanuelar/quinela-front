@@ -74,7 +74,7 @@ export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
 
-    await fetch(config.apiUrl + "matches/next-prev",
+    await fetch(config.apiUrl + "matches/next",
         {
             mode: "cors",
             method : "POST",

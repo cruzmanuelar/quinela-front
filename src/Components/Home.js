@@ -20,9 +20,16 @@ const Home = () => {
 
     const getData = async () => {
         setLoadingData(true)
-        await dispatch(GetNextPrevMatchesReducers())
-        await dispatch(GetPrevMatchesReducers())
-        setLoadingData(false)
+        try {
+            await Promise.all([
+              dispatch(GetNextPrevMatchesReducers()),
+              dispatch(GetPrevMatchesReducers())
+            ]);        
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoadingData(false);
+        }
     }
 
     const userValidation = async () => {
