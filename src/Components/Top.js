@@ -86,10 +86,13 @@ const Top = () => {
 					<Avatar style={{backgroundColor:"white", cursor:"pointer"}} size={28}  icon={<UserOutlined style={{color:"black"}} />} />
 				</a>
 			</Dropdown>
-			<TableGeneral
+			{
+				showTableGeneral &&<TableGeneral
 				showTableGeneral={showTableGeneral}
 				setShowTableGeneral={setShowTableGeneral}
 			/>
+			}
+			
 		</div>
 	)
 }
