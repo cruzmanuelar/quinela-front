@@ -1,4 +1,4 @@
-import { Col, InputNumber , Modal, Row } from 'antd'
+import { Col, InputNumber , Modal, Row, Tooltip, Popover } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './../Styles/Components/FormQuinela.css'
@@ -15,6 +15,33 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
     const {
         rex_next_matches,
     } = useSelector(({matches}) => matches)
+
+    const contentLastMatches = (lastMatches) => {
+        return <div className="Container-Last-Games">
+            
+            {
+                lastMatches.map(last => {
+                    return <Tooltip
+                                placement="bottom" 
+                                title={last.infoMatch}
+                                overlayInnerStyle={{background:"gray"}}
+                            >
+                                <div className={last.class}>
+                                    {
+                                        last.info == "draw" 
+                                        ? "E" 
+                                        : last.info == "win" 
+                                            ? "G" 
+                                            : last.info == "lost" 
+                                                ? "P" 
+                                                : "?"                            
+                                    }
+                                </div>
+                            </Tooltip>
+                })
+            }
+        </div>
+    }
 
     useEffect(() => {
 
@@ -46,117 +73,55 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
             {
                 rex_next_matches.length > 0
                 ? <>
-                    <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
-                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
-                            <span>{rex_next_matches[0]['partlocal']['painombre']}</span>
-                            <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[0]['partlocal'].paiimagen}`)}/>
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
-                            <InputNumber
-                                defaultValue={rex_next_matches[0]['predictionLocal']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(0, 'predictionLocal', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
-                            />
-                            <InputNumber
-                                defaultValue={rex_next_matches[0]['predictionVisitante']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(0, 'predictionVisitante', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[0]["parhabilitado"]}
-                            />
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
-                        <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[0]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[0]['partvisitante']['painombre']}</span>
-                        </Col>
-                    </Row>
-                    <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
-                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
-                            <span>{rex_next_matches[1]['partlocal']['painombre']}</span><img className='Image-Country' src={cargarImagen(`./${rex_next_matches[1]['partlocal'].paiimagen}`)}/>
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
-                            <InputNumber
-                                defaultValue={rex_next_matches[1]['predictionLocal']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(1, 'predictionLocal', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[1]["parhabilitado"]}
-                            />
-                            <InputNumber
-                                defaultValue={rex_next_matches[1]['predictionVisitante']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(1, 'predictionVisitante', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[1]["parhabilitado"]}
-                            />
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
-                        <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[1]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[1]['partvisitante']['painombre']}</span>
-                        </Col>
-                    </Row>
-                    <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
-                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
-                            <span>{rex_next_matches[2]['partlocal']['painombre']}</span><img className='Image-Country' src={cargarImagen(`./${rex_next_matches[2]['partlocal'].paiimagen}`)}/>
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
-                            <InputNumber 
-                                defaultValue={rex_next_matches[2]['predictionLocal']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(2, 'predictionLocal', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[2]["parhabilitado"]}
-                            />
-                            <InputNumber
-                                defaultValue={rex_next_matches[2]['predictionVisitante']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(2, 'predictionVisitante', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[2]["parhabilitado"]}
-                            />
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
-                        <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[2]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[2]['partvisitante']['painombre']}</span>
-                        </Col>
-                    </Row>
-                    <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
-                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
-                            <span>{rex_next_matches[3]['partlocal']['painombre']}</span><img className='Image-Country' src={cargarImagen(`./${rex_next_matches[3]['partlocal'].paiimagen}`)}/>
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
-                            <InputNumber 
-                                defaultValue={rex_next_matches[3]['predictionLocal']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(3, 'predictionLocal', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[3]["parhabilitado"]}
-                            />
-                            <InputNumber
-                                defaultValue={rex_next_matches[3]['predictionVisitante']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(3, 'predictionVisitante', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[3]["parhabilitado"]}
-                            />
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
-                        <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[3]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[3]['partvisitante']['painombre']}</span>
-                        </Col>
-                    </Row>
-                    <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
-                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
-                            <span>{rex_next_matches[4]['partlocal']['painombre']}</span><img className='Image-Country' src={cargarImagen(`./${rex_next_matches[4]['partlocal'].paiimagen}`)}/>
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
-                            <InputNumber
-                                defaultValue={rex_next_matches[4]['predictionLocal']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(4, 'predictionLocal', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[4]["parhabilitado"]}
-                            />
-                            <InputNumber
-                                defaultValue={rex_next_matches[4]['predictionVisitante']}
-                                onChange={(value)=> dispatch(EditFormQuinelaReducers(4, 'predictionVisitante', value))}
-                                min={0} max={20}
-                                disabled={!rex_next_matches[4]["parhabilitado"]}
-                            />
-                        </Col>
-                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
-                        <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[4]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[4]['partvisitante']['painombre']}</span>
-                        </Col>
-                    </Row>
+                    {
+                        rex_next_matches.map((next, index) => {
+                            return <Row style={{display:'flex', alignItems:'center', marginBottom:'4px'}}>
+                                        <Col span={8} style={{display:'flex', justifyContent:'end', alignItems:'center'}}>
+                                            <Popover
+                                                content={()=>contentLastMatches(rex_next_matches[index]['partlocal']['lastMatches'])} 
+                                                trigger="click"
+                                                placement="right"
+                                                arrow={false}
+                                                overlayInnerStyle={{backgroundColor:"#5e2129"}}
+                                                overlayClassName="PopOver-Last-Games"
+                                            >
+                                                <div className="Container-Flex-Center">
+                                                    <span>{rex_next_matches[index]['partlocal']['painombre']}</span>
+                                                    <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[index]['partlocal'].paiimagen}`)}/>
+                                                </div>
+                                            </Popover>
+                                        </Col>
+                                        <Col span={8} style={{display:'flex', justifyContent:'center', columnGap:'8px'}}>
+                                            <InputNumber
+                                                defaultValue={rex_next_matches[index]['predictionLocal']}
+                                                onChange={(value)=> dispatch(EditFormQuinelaReducers(index, 'predictionLocal', value))}
+                                                min={0} max={20}
+                                                disabled={!rex_next_matches[index]["parhabilitado"]}
+                                            />
+                                            <InputNumber
+                                                defaultValue={rex_next_matches[index]['predictionVisitante']}
+                                                onChange={(value)=> dispatch(EditFormQuinelaReducers(index, 'predictionVisitante', value))}
+                                                min={0} max={20}
+                                                disabled={!rex_next_matches[index]["parhabilitado"]}
+                                            />
+                                        </Col>
+                                        <Col span={8} style={{display:'flex', justifyContent:'inital', alignItems:'center'}}>
+                                            <Popover
+                                                content={()=>contentLastMatches(rex_next_matches[index]['partvisitante']['lastMatches'])} 
+                                                trigger="click"
+                                                placement="left"
+                                                overlayInnerStyle={{backgroundColor:"#5e2129"}}
+                                                arrow={false}
+                                                overlayClassName="PopOver-Last-Games"
+                                            >
+                                                <div className="Container-Flex-Center">
+                                                    <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[index]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[index]['partvisitante']['painombre']}</span>
+                                                </div>
+                                            </Popover>
+                                        </Col>
+                            </Row>
+                        })
+                    }
                 </>
                 : null
             }

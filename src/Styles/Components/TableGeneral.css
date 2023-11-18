@@ -6,10 +6,68 @@
     align-items: center;
     flex-direction: row;
 }
+
 .Table-Playoff{
     font-weight: 600;
 }
 
 .Modal-Positions .ant-modal-content{
-    padding: 20px 2px !important;
+    padding: 20px 1px !important;
+}
+
+.Table-Playoff .Image-Country{
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+.Table-Playoff .ant-table-thead .ant-table-cell::before{
+    display: none !important;
+}
+.Table-Playoff .ant-table-tbody .ant-table-cell{
+    padding: 4px 0 !important;
+}
+
+.Table-Playoff .ant-table-tbody .ant-table-row{
+    border-bottom: 2px solid red !important;
+}
+
+
+.Table-Playoff .Column-Team{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.PopOver-Last-Games .Container-Last-Games{
+    display: flex;   
+    column-gap: 2px;
+}
+
+.PopOver-Last-Games .Container-Last-Games div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    color: white;
+    border-radius: 3px;
+}
+
+.PopOver-Last-Games .Container-Last-Games .Next-Game{
+    background-color: gray;
+}
+
+.PopOver-Last-Games .Container-Last-Games .Draw-Game{
+    background-color: #f3a000;
+}
+
+.PopOver-Last-Games .Container-Last-Games .Win-Game{
+    background-color: #00a83f;
+}
+
+.PopOver-Last-Games .Container-Last-Games .Lost-Game{
+    background-color: #dc0000;
 }

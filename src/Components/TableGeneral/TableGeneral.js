@@ -1,11 +1,12 @@
-import { Modal, Table, Typography, Tooltip } from 'antd'
+import { Modal, Table, Typography, Tooltip, Popover } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetTablePositionsReducers } from '../../Redux/Actions/Matches/Matches'
 import {
     CaretUpOutlined,
     CaretDownOutlined,
-    MinusOutlined
+    MinusOutlined,
+    EyeOutlined
 } from "@ant-design/icons"
 import "./../../Styles/Components/TableGeneral.css"
 const cargarImagen = require.context("/src/Assets/images/icons", true)
@@ -23,6 +24,33 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
     const {
         rex_table_positions,
     } = useSelector(({matches}) => matches)
+
+    const contentLastMatches = (lastMatches) => {
+        return <div className="Container-Last-Games">
+            
+            {
+                lastMatches.map(last => {
+                    return <Tooltip
+                                placement="bottom" 
+                                title={last.infoMatch}
+                                overlayInnerStyle={{background:"gray"}}
+                            >
+                                <div className={last.class}>
+                                    {
+                                        last.info == "draw" 
+                                        ? "E" 
+                                        : last.info == "win" 
+                                            ? "G" 
+                                            : last.info == "lost" 
+                                                ? "P" 
+                                                : "?"                            
+                                    }
+                                </div>
+                            </Tooltip>
+                })
+            }
+        </div>
+    }
 
     useEffect(() => {
         getData()
@@ -52,7 +80,7 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
                             : <CaretDownOutlined  style={{color:"red"}} />
                     }
                     </div>
-                    <div>
+                    <div className='Container-Flex-Center'>
                     <Tooltip
                             title={record.painombre}
                             placement="right"
@@ -108,24 +136,13 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
             )
         },
         {
-            title: 'GF',
-            dataIndex: 'gf',
-            key: 'gf',
+            title: 'G',
+            dataIndex: 'G',
+            key: 'g',
             align: 'center',
             render : (_, record, index) => (
                 <div>
-                    {record.gf}
-                </div>
-            )
-        },
-		{
-            title: 'GC',
-            dataIndex: 'gc',
-            key: 'gc',
-            align: 'center',
-            render : (_, record, index) => (
-                <div>
-                    {record.gc}
+                    {record.gf}:{record.gc}
                 </div>
             )
         },
@@ -151,7 +168,24 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
                 </div>
             )
         },
-
+        {
+            title: 'Forma',
+            dataIndex: 'ptos',
+            key: 'ptos',
+            align: 'center',
+            render : (_, record, index) => (
+                <div>
+                    <Popover
+                        content={()=>contentLastMatches(record.lastMatches)} 
+                        trigger="click"
+                        placement="left"
+                        overlayClassName="PopOver-Last-Games"
+                    >
+                        <EyeOutlined style={{color:"#5e2129"}}/>
+                    </Popover>
+                </div>
+            )
+        },
     ]
 	return (
 		<Modal

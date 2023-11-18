@@ -4,3 +4,9 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
+
+.Container-Flex-Center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
