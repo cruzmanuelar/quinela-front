@@ -5,12 +5,16 @@ import {
     GET_PREDICTIONS_JOURNEY,
     FORM_PREDICTION_NEXT_MATCHES,
     GET_TABLE_POSITIONS,
-    SEND_FORM_QUINELA
+    SEND_FORM_QUINELA,
+    LOADING_PREV_MATCHES,
+    LOADING_NEXT_MATCHES
 } from "../../../Constants/Matches/Matches"
 
 const INIT_STATE = {
     rex_next_matches    : [],
     rex_prev_matches    : [],
+    rex_loading_prev_matches : false,
+    rex_loading_next_matches : false,
     rex_send_form_quinela : false,
     rex_all_matches     : [],
     rex_predictions_journey : [],
@@ -21,6 +25,16 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
     switch(action.type){
+        case LOADING_PREV_MATCHES:
+            return {
+                ...state,
+                rex_loading_prev_matches: action.payload
+        }
+        case LOADING_NEXT_MATCHES:
+            return {
+                ...state,
+                rex_loading_next_matches: action.payload
+        }
         case GET_TABLE_POSITIONS:
             return {
                 ...state,

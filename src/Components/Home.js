@@ -10,25 +10,23 @@ import { UserValidationReducers } from '../Redux/Actions/Users/Users'
 const Home = () => {
     
     const dispatch = useDispatch()
-    const [loadingData, setLoadingData ] = useState(false)
     const navigate = useNavigate()
 
     const {
         rex_next_matches,
-        rex_prev_matches
+        rex_prev_matches,
+        rex_loading_prev_matches,
+        rex_loading_next_matches,    
     } = useSelector(({matches}) => matches)
 
     const getData = async () => {
-        setLoadingData(true)
         try {
             await Promise.all([
-              dispatch(GetNextPrevMatchesReducers()),
-              dispatch(GetPrevMatchesReducers())
-            ]);        
+                dispatch(GetNextPrevMatchesReducers()),
+                dispatch(GetPrevMatchesReducers())
+            ]);
         } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoadingData(false);
+            console.error('Error:', error);
         }
     }
 
@@ -51,7 +49,7 @@ const Home = () => {
     return (
     <>
         {
-            loadingData
+            rex_loading_prev_matches
             ? <Skeleton active />
             : <JourneyMatches
                 title={"Jornada anterior - Fecha " + rex_prev_matches[0]?.fecfechas.fecjornada}
@@ -59,10 +57,9 @@ const Home = () => {
                 nextMatches={false}
             />
         }
-        
         <TableQuinela/>
         {
-            loadingData
+            rex_loading_next_matches
             ? <Skeleton active />
             : <JourneyMatches
                 title={"Jornada siguiente - Fecha " + rex_next_matches[0]?.fecfechas.fecjornada}

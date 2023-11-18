@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate  } from 'react-router-dom';
 import Main from './Routes/Main';
 import Login from './Routes/Login';
 import Matches from './Routes/Matches';
@@ -10,6 +10,7 @@ const App = () => {
 		<>
 		<Routes>
 			<Route path="/login" element={<Login />} />
+			<Route path="/" element={<Navigate to="/home" />} />
 			<Route path="/home" element={<Main />} />
 			<Route path="/matches" element={<Matches/>} />
 			<Route path="/admin" element={<Admin />} />

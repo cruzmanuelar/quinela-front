@@ -6,6 +6,8 @@ import {
     GET_PREDICTIONS_JOURNEY, 
     GET_PREV_MATCHES, 
     GET_TABLE_POSITIONS, 
+    LOADING_NEXT_MATCHES, 
+    LOADING_PREV_MATCHES, 
     SEND_FORM_QUINELA
 } from "../../../Constants/Matches/Matches"
 import { GetNextMatchesReducers } from "../Admin/Admin"
@@ -43,6 +45,11 @@ export const GetPrevMatchesReducers = () => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
 
+    dispatch({
+        type : LOADING_PREV_MATCHES,
+        payload : true
+    })
+
     await fetch(config.apiUrl + "matches/prev",
         {
             mode: "cors",
@@ -61,18 +68,25 @@ export const GetPrevMatchesReducers = () => async (dispatch, getState) =>{
                 type : GET_PREV_MATCHES,
                 payload : data.data.prevMatches
             })
-
-            console.log(data)
         }
     })
     .catch((error) => {
         console.log(error)
+    })
+    dispatch({
+        type : LOADING_PREV_MATCHES,
+        payload : false
     })
 }
 
 export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
 
     const usutoken = localStorage.getItem('usutoken')
+
+    dispatch({
+        type : LOADING_NEXT_MATCHES,
+        payload : true
+    })
 
     await fetch(config.apiUrl + "matches/next",
         {
@@ -96,16 +110,16 @@ export const GetNextPrevMatchesReducers = () => async (dispatch, getState) =>{
                 type : FORM_PREDICTION_NEXT_MATCHES,
                 payload : [...data.dataUser.nextMatches]
             })
-            dispatch({
-                type : GET_PREV_MATCHES,
-                payload : data.data.prevMatches
-            })
 
             console.log(data)
         }
     })
     .catch((error) => {
         console.log(error)
+    })
+    dispatch({
+        type : LOADING_NEXT_MATCHES,
+        payload : false
     })
 }
 
