@@ -1,5 +1,5 @@
 import { Modal, Table, Typography, Tooltip, Popover } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetTablePositionsReducers } from '../../Redux/Actions/Matches/Matches'
 import {
@@ -13,12 +13,14 @@ const cargarImagen = require.context("/src/Assets/images/icons", true)
 
 const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
 
-	const { Title } = Typography
+    const [ loadingData, setLoadingData ] = useState(false)
 
     const dispatch = useDispatch()
 
     const getData = async () => {
-        dispatch(GetTablePositionsReducers())
+        setLoadingData(true)
+        let response = await dispatch(GetTablePositionsReducers())
+        setLoadingData(false)
     }
 
     const {
@@ -35,7 +37,7 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
                                 title={last.infoMatch}
                                 overlayInnerStyle={{background:"gray"}}
                             >
-                                <div className={last.class}>
+                                <div className={last.class} style={{cursor:"pointer"}}>
                                     {
                                         last.info == "draw" 
                                         ? "E" 
@@ -53,7 +55,9 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
     }
 
     useEffect(() => {
-        getData()
+        if(rex_table_positions.length == 0){
+            getData()
+        }
     },[])
     const columns = [
         {
@@ -198,6 +202,7 @@ const TableGeneral = ({showTableGeneral, setShowTableGeneral}) => {
 			className='Modal-Form-Quinela Modal-Positions'
 		>
 			<Table
+                loading={loadingData}
 				className='Table-Quinela Table-Playoff'
 				size='small'
 				columns={columns}

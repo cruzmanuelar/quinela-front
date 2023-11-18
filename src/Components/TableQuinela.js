@@ -36,7 +36,9 @@ const TableQuinela = () => {
     }
 
     const getFilterJourney = async (value) => {
-        dispatch(GetScoreUsersJourneyReducers(value))
+        setLoadingData(true)
+        let response = await dispatch(GetScoreUsersJourneyReducers(value))
+        setLoadingData(false)
     }
     
     useEffect(()=> {

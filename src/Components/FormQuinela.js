@@ -26,7 +26,7 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                                 title={last.infoMatch}
                                 overlayInnerStyle={{background:"gray"}}
                             >
-                                <div className={last.class}>
+                                <div className={last.class} style={{cursor:"pointer"}}>
                                     {
                                         last.info == "draw" 
                                         ? "E" 
@@ -85,7 +85,7 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                                                 overlayInnerStyle={{backgroundColor:"#5e2129"}}
                                                 overlayClassName="PopOver-Last-Games"
                                             >
-                                                <div className="Container-Flex-Center">
+                                                <div className="Container-Flex-Center Container-Quinela">
                                                     <span>{rex_next_matches[index]['partlocal']['painombre']}</span>
                                                     <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[index]['partlocal'].paiimagen}`)}/>
                                                 </div>
@@ -114,7 +114,7 @@ const FormQuinela = ({showForm, setShowForm, notifyAlert, notifySuccess}) => {
                                                 arrow={false}
                                                 overlayClassName="PopOver-Last-Games"
                                             >
-                                                <div className="Container-Flex-Center">
+                                                <div className="Container-Flex-Center Container-Quinela">
                                                     <img className='Image-Country' src={cargarImagen(`./${rex_next_matches[index]['partvisitante'].paiimagen}`)}/><span>{rex_next_matches[index]['partvisitante']['painombre']}</span>
                                                 </div>
                                             </Popover>

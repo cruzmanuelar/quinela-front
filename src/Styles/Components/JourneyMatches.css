@@ -82,3 +82,7 @@
     display: none;
     transition: display 2s;
 }
+
+.Container-Flex-Center.Container-Quinela{
+    cursor: pointer;
+}
