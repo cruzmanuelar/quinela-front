@@ -1,8 +1,8 @@
 import { Col, Row, Collapse, Button } from 'antd'
 import React, { useState } from 'react'
-import "./../Styles/Components/JourneyMatches.css"
+import "./../../Styles/Components/JourneyMatches.css"
 import FormQuinela from './FormQuinela';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
     AlertOutlined
 } from "@ant-design/icons"

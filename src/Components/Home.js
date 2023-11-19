@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import JourneyMatches from './JourneyMatches'
+import JourneyMatches from './../Components/Main/JourneyMatches'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetNextPrevMatchesReducers, GetPrevMatchesReducers } from '../Redux/Actions/Matches/Matches'
-import TableQuinela from './TableQuinela'
-import { Skeleton } from 'antd'
+import TableQuinela from './Main/TableQuinela'
 import { useNavigate } from 'react-router-dom'
 import { UserValidationReducers } from '../Redux/Actions/Users/Users'
+import LoadingData from './LoadingData'
 
 const Home = () => {
     
@@ -20,12 +20,10 @@ const Home = () => {
     } = useSelector(({matches}) => matches)
 
     const getData = async () => {
-        if(rex_prev_matches.length == 0){
-            await dispatch(GetNextPrevMatchesReducers())
-        }
-        if(rex_next_matches.length == 0){
-            await dispatch(GetPrevMatchesReducers())
-        }
+        await Promise.all([
+            rex_prev_matches.length === 0 && dispatch(GetNextPrevMatchesReducers()),
+            rex_next_matches.length === 0 && dispatch(GetPrevMatchesReducers())
+        ])
     }
 
     const userValidation = async () => {
@@ -48,7 +46,9 @@ const Home = () => {
     <>
         {
             rex_loading_prev_matches
-            ? <Skeleton active />
+            ? <div style={{marginTop:"20px"}}>
+                <LoadingData />
+            </div>
             : <JourneyMatches
                 title={"Jornada anterior - Fecha " + rex_prev_matches[0]?.fecfechas.fecjornada}
                 data={rex_prev_matches}
@@ -58,7 +58,9 @@ const Home = () => {
         <TableQuinela/>
         {
             rex_loading_next_matches
-            ? <Skeleton active />
+            ? <div style={{marginTop:"20px"}}>
+                    <LoadingData />
+                </div>
             : <JourneyMatches
                 title={"Jornada siguiente - Fecha " + rex_next_matches[0]?.fecfechas.fecjornada}
                 data={rex_next_matches}

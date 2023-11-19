@@ -154,16 +154,17 @@ export const SendQuinelaReducers = () => async (dispatch, getState) =>{
     .then(async data => {
         if(data.response){
             response = true
-            let responseNext = await dispatch(GetNextPrevMatchesReducers())
-            dispatch({
-                type : SEND_FORM_QUINELA,
-                payload : false
-            })        
+            let responseNext = await dispatch(GetNextPrevMatchesReducers())    
         }
         message = data.message
     })
     .catch((error) => {
         console.log(error)
+    })
+
+    dispatch({
+        type : SEND_FORM_QUINELA,
+        payload : false
     })
 
     return {response, message}

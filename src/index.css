@@ -10,3 +10,15 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
+.ant-spin-dot-item {
+	background-color: #5e2129 !important;
+}
+
+.ant-spin-text { 
+	color: #5e2129 !important;
+	text-align: center;
+}
+
+.ant-spin{
+}

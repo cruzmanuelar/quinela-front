@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Collapse, Row, Col, Modal, Table, Skeleton } from 'antd'
+import { Collapse, Row, Col, Modal, Table, Spin } from 'antd'
 import Top from '../Components/Top'
 import { 
     GetAllMatchesReducers,
@@ -13,6 +13,7 @@ import {
     ArrowUpOutlined,
     FireOutlined
 } from "@ant-design/icons"
+import LoadingData from '../Components/LoadingData'
 const cargarImagen = require.context("/src/Assets/images/icons", true)
 
 const Matches = () => {
@@ -119,7 +120,11 @@ const Matches = () => {
             <Row>
                 {
                     loadingData
-                    ? <Skeleton active />
+                    ?   <Col span={24} style={{marginTop:"100px", display:"flex", alignItems:"center", flexDirection:"column", justifyContent:"center"}}>
+                            <Spin size="large">
+                            </Spin>
+                            <span style={{color:"#5e2129"}}>Cargando...</span>
+                        </Col>
                         
                     : rex_all_matches.map(dat => (
                         <Col span={24}>
@@ -174,34 +179,33 @@ const Matches = () => {
                 className='Modal-Form-Quinela'
             >
                 {
-                    rex_predictions_journey.length > 0
+                    !loadingPredictions
                     ?   <>
-                        <div style={{display:"flex", columnGap:"3px"}}>
-                            <span style={{ color:"#5e2129", fontWeight:"500"}}>Marcador: <IconOnFire/> Acertó</span>
-                        </div>
-                        <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>
-                            <div>Resultado:</div>
-                            <div className='Box-Prediction-Ok'></div><span>Acertó</span>
-                            <div className='Box-Prediction-Failed'></div><span>Falló</span>
-                        </div>
-                        <Table
-                            size='small'
-                            columns={columns}
-                            dataSource={rex_predictions_journey}
-                            className='Table-Quinela'
-                            loading={loadingPredictions}
-                            rowClassName={(record)=> {
-                                let resultOk = ""
-                                if(record.parpartidos.parfinalizado){
-                                    resultOk = record.pruresultado == record.parpartidos.parresultado
-                                    return resultOk ? "Color-Succes" : "Color-Wrong"
-                                }
-                                return resultOk
+                            <div style={{display:"flex", columnGap:"3px"}}>
+                                <span style={{ color:"#5e2129", fontWeight:"500"}}>Marcador: <IconOnFire/> Acertó</span>
+                            </div>
+                            <div style={{display:"flex", alignItems:"center", columnGap:"5px", color:"#5e2129", fontWeight:"500"}}>
+                                <div>Resultado:</div>
+                                <div className='Box-Prediction-Ok'></div><span>Acertó</span>
+                                <div className='Box-Prediction-Failed'></div><span>Falló</span>
+                            </div>
+                            <Table
+                                size='small'
+                                columns={columns}
+                                dataSource={rex_predictions_journey}
+                                className='Table-Quinela'
+                                rowClassName={(record)=> {
+                                    let resultOk = ""
+                                    if(record.parpartidos.parfinalizado){
+                                        resultOk = record.pruresultado == record.parpartidos.parresultado
+                                        return resultOk ? "Color-Succes" : "Color-Wrong"
+                                    }
+                                    return resultOk
 
-                            }}
-                        />
+                                }}
+                            />
                         </>
-                : null
+                        : <LoadingData margin="20px"/>
                 }
                 
             </Modal>

@@ -28,3 +28,22 @@
 .Table-Quinela .Color-Wrong{
     background-color:#ffb3ba;
 }
+
+.Container-Info-Points{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: #5e2129;
+}
+
+.Container-Info-Points .Title-Info{
+    font-weight: bold;
+}
+
+.Container-Select-Filter{
+    margin: 10px 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}

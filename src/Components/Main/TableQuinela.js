@@ -1,21 +1,21 @@
 import { Table, Typography, Modal, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetScoreUsersJourneyReducers, GetScoreUsersReducers } from '../Redux/Actions/Users/Users'
-import '../Styles/Components/TableQuinela.css'
+import { GetScoreUsersJourneyReducers, GetScoreUsersReducers } from '../../Redux/Actions/Users/Users'
+import '../../Styles/Components/TableQuinela.css'
 import {
     UserOutlined,
     QuestionCircleOutlined
 } from "@ant-design/icons"
-import { GetJourneysReducers } from '../Redux/Actions/Admin/Admin'
+import { GetJourneysReducers } from '../../Redux/Actions/Admin/Admin'
 
 const TableQuinela = () => {
 
     const dispatch = useDispatch()
-    const [ loadingData, setLoadingData ] = useState(false)
     const { Title } = Typography
-    const [ showModalPoints, setShowModalPoints ] = useState(false)
 
+    const [ loadingData, setLoadingData ] = useState(false)
+    const [ showModalPoints, setShowModalPoints ] = useState(false)
     const [ filterJourney, setFilterJourney ] = useState("Todas")
     
     const {
@@ -95,7 +95,7 @@ const TableQuinela = () => {
     return (
         <div className='Container-Table-Quinela'>
             <Title className='Title-Table-Quinela' level={4}>Tabla de posiciones</Title>
-            <div style={{margin:"10px 10px", display:"flex", alignItems:"center", columnGap:"10px"}}>
+            <div className="Container-Select-Filter">
                 <span>Filtrar por fecha:</span>
                 <Select
                     style={{width:"200px"}}
@@ -117,7 +117,6 @@ const TableQuinela = () => {
                     }}
                     
                 >
-
                 </Select>
             </div>
             <Table
@@ -139,18 +138,18 @@ const TableQuinela = () => {
                 onCancel={()=> setShowModalPoints(false)}
                 className='Modal-Form-Quinela Modal-Positions'
             >
-                <div style={{display:"flex", justifyContent:"center", flexDirection:"column", textAlign:"center", color:"#5e2129"}}>
+                <div className="Container-Info-Points">
                     <div>
-                        <span style={{fontWeight:"bold"}}>Bono resultado:</span> Acierto de ganador o empate: +3ptos
+                        <span className="Title-Info">Bono resultado:</span> Acierto de ganador o empate: +3ptos
                     </div>
                     <div>
-                        <span style={{fontWeight:"bold"}}>Bono marcador:</span> Acierto de goles exactos del partido: +2ptos
+                        <span className="Title-Info">Bono marcador:</span> Acierto de goles exactos del partido: +2ptos
                     </div>
                     <div>
-                        <span style={{fontWeight:"bold"}}>Bono goles:</span> Acierto de goles de algún equipo: +1pto
+                        <span className="Title-Info">Bono goles:</span> Acierto de goles de algún equipo: +1pto
                     </div>
                     <div>
-                        <span style={{fontWeight:"bold"}}>Total:</span> Bono resultado + Bono marcador + Bono goles
+                        <span className="Title-Info">Total:</span> Bono resultado + Bono marcador + Bono goles
                     </div>
 
                     <div style={{display:"flex", flexDirection:"column", margin:"10px 0"}}>

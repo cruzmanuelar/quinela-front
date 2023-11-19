@@ -1,8 +1,8 @@
 import { Col, InputNumber , Modal, Row, Tooltip, Popover } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './../Styles/Components/FormQuinela.css'
-import { EditFormQuinelaReducers, SendQuinelaReducers } from '../Redux/Actions/Matches/Matches';
+import './../../Styles/Components/FormQuinela.css'
+import { EditFormQuinelaReducers, SendQuinelaReducers } from '../../Redux/Actions/Matches/Matches';
 import { LoadingOutlined } from '@ant-design/icons'
 
 const cargarImagen = require.context("/src/Assets/images/icons", true)

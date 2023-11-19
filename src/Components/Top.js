@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
-import '../Styles/Components/Header.css'
-import { useSelector } from 'react-redux'
-import { Button, Dropdown, Avatar } from 'antd'
+import { Dropdown, Avatar } from 'antd'
 import { LogoutOutlined, CalendarOutlined, TableOutlined, UserOutlined, HomeOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import '../Styles/Components/Header.css'
 import TableGeneral from './TableGeneral/TableGeneral'
 
 const Top = () => {
 
 	const [ showTableGeneral, setShowTableGeneral ] = useState(false)
-	const [ showHome, setShowHome ] = useState(true)
 
 	const navigate = useNavigate()
-
-	const {
-		rex_users
-	} = useSelector(({users}) => users)
 
 	const items = [
 		{
