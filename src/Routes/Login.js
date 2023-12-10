@@ -66,7 +66,7 @@ const Login = () => {
                 src='https://pbs.twimg.com/media/E3DLL1NXMAA4OkS.jpg'
             />
             <Title style={{color:'#FFFFFF'}} level={2}>
-                La polla de la bondad
+                La Quinela de la bondad
             </Title>
             <div style={{display:"flex", rowGap:"10px", flexDirection:"column"}}>
                 {
